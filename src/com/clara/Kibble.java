@@ -6,7 +6,7 @@ public class Kibble {
 
 	/** Identifies a random square to display a kibble
 	 * Any square is ok, so long as it doesn't have any snake segments in it. 
-	 * 
+	 * There is only one Kibble and when the snake eats it, then it moves. 
 	 */
 	
 	private int kibbleX; //This is the square number (not pixel)

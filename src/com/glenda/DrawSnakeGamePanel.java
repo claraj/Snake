@@ -28,9 +28,10 @@ public class DrawSnakeGamePanel extends JPanel {
 	public BufferedImage head_snake;
 
 
-	public void MyImage (String path) {
+//You are never calling this method, so the file is never read, and the head_snake is not initalized.
+	public void MyImage (String path) {     //Can you think of a better name for this method? :)
 		try {
-			head_snake = ImageIO.read(new File("/src/head.png"));
+			head_snake = ImageIO.read(new File("/src/head.png"));  //Make sure this image exists, it's not in your repository
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,6 +46,9 @@ public class DrawSnakeGamePanel extends JPanel {
 		this.snake = s;
 		this.kibble = k;
 		this.score = sc;
+		//Load head_snake image here
+		MyImage("this argument doesn't do anything");  //do you need the argument? 
+		
 	}
 
 
@@ -171,7 +175,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		Point head = coordinates.pop();
 		//head_snake = Toolkit.getDefaultToolkit().getImage("/src/head.png"); //Add logo to the main screen
 
-		g.drawImage(head_snake, (int)head.getX(), (int)head.getY(), this);
+		g.drawImage(head_snake, (int)head.getX(), (int)head.getY(), this);  //This should work now
 		//g1.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 		g.finalize();
 

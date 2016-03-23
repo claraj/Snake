@@ -24,13 +24,13 @@ public class SnakeGame {
 	static final int BEFORE_GAME = 1;
 	static final int DURING_GAME = 2;
 	static final int GAME_OVER = 3;
-	static final int GAME_WON = 4;   //The values are not important. The important thing is to use the constants 
+	static final int GAME_WON = 4;   //The numerical values of these variables are not important. The important thing is to use the constants
 	//instead of the values so you are clear what you are setting. Easy to forget what number is Game over vs. game won
 	//Using constant names instead makes it easier to keep it straight. Refer to these variables 
 	//using statements such as SnakeGame.GAME_OVER 
 
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
-	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change its value
+	//Other classes like Snake and DrawSnakeGamePanel will query this, and change its value
 
 	protected static long clockInterval = 500; //controls game speed
 	//Every time the clock ticks, the snake moves

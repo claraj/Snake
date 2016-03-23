@@ -5,7 +5,6 @@ package com.clara;
  */
 public class GameComponentManager {
 
-
     private Kibble kibble;
     private Snake snake;
     private Score score;
@@ -13,7 +12,8 @@ public class GameComponentManager {
     /** Called every clock tick. Tell components to interact/update,
      * manage interactions, update score etc.
      * If there were more components - e.g walls, mazes,
-     * different types of kibble/prizes... - they could be managed here too
+     * different types of kibble/prizes, different scoring systems...
+     * they could be managed here too
      */
     public void update() {
         snake.moveSnake();

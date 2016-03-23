@@ -41,26 +41,23 @@ public class DrawSnakeGamePanel extends JPanel {
         gameStage = SnakeGame.getGameStage();
         
         switch (gameStage) {
-        case 1: {
-        	displayInstructions(g);
-        	break;
-        } 
-        case 2 : {
-        	displayGame(g);
-        	break;
+			case SnakeGame.BEFORE_GAME: {
+				displayInstructions(g);
+				break;
+			}
+			case SnakeGame.DURING_GAME: {
+				displayGame(g);
+				break;
+			}
+			case SnakeGame.GAME_OVER: {
+				displayGameOver(g);
+				break;
+			}
+			case SnakeGame.GAME_WON: {
+				displayGameWon(g);
+				break;
+        	}
         }
-        case 3: {
-        	displayGameOver(g);
-        	break;
-        }
-        case 4: {
-        	displayGameWon(g);
-        	break;
-        }
-        }
-        
-        
-        
     }
 
 	private void displayGameWon(Graphics g) {
@@ -126,6 +123,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		
 	}
 
+
 	private void displaySnake(Graphics g) {
 
 		LinkedList<Point> coordinates = snake.segmentsToDraw();
@@ -140,14 +138,12 @@ public class DrawSnakeGamePanel extends JPanel {
 		for (Point p : coordinates) {
 			g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 		}
-
 	}
+
 
 	private void displayInstructions(Graphics g) {
         g.drawString("Press any key to begin!",100,200);		
         g.drawString("Press q to quit the game",100,300);		
     	}
-	
-    
 }
 

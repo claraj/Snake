@@ -4,22 +4,18 @@ import java.util.TimerTask;
 
 public class GameClock extends TimerTask {
 
-	Snake snake;
-	Kibble kibble;
-	Score score;
+	GameComponentManager componentManager;
 	DrawSnakeGamePanel gamePanel;
 		
-	public GameClock(Snake snake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel){
-		this.snake = snake;
-		this.kibble = kibble;
-		this.score = score;
+	public GameClock(GameComponentManager components, DrawSnakeGamePanel gamePanel){
+		this.componentManager = components;
 		this.gamePanel = gamePanel;
 	}
 	
 	@Override
 	public void run() {
 		// This method will be called every clock tick
-						
+
 		int stage = SnakeGame.getGameStage();
 
 		switch (stage) {
@@ -28,16 +24,12 @@ public class GameClock extends TimerTask {
 				break;
 			}
 			case SnakeGame.DURING_GAME: {
-				//
-				snake.moveSnake();
-				if (snake.didEatKibble(kibble) == true) {		
-					//tell kibble to update
-					kibble.moveKibble(snake);
-					Score.increaseScore();
-				}
+				//Game is running. Ask componentManager to tell components to update.
+				componentManager.update();
 				break;
 			}
 			case SnakeGame.GAME_OVER: {
+				System.out.println("stop timer");
 				this.cancel();		//Stop the Timer	
 				break;	
 			}
@@ -45,8 +37,6 @@ public class GameClock extends TimerTask {
 				this.cancel();   //stop timer
 				break;
 			}
-			
-		
 		}
 				
 		gamePanel.repaint();		//In every circumstance, must update screen

@@ -18,10 +18,10 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Kibble kibble;
 	private Score score;
 	
-	DrawSnakeGamePanel(Snake s, Kibble k, Score sc){
-		this.snake = s;
-		this.kibble = k;
-		this.score = sc;
+	DrawSnakeGamePanel(GameComponentManager components){
+		this.snake = components.getSnake();
+		this.kibble = components.getKibble();
+		this.score = components.getScore();
 	}
 	
 	public Dimension getPreferredSize() {

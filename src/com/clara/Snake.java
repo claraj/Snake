@@ -133,8 +133,13 @@ public class Snake {
 		//Did you hit the wall, snake? 
 		//Or eat your tail? Don't move. 
 
-		if (hitWall == true || ateTail == true) {
+		if (isGameOver()) {
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+			return;
+		}
+
+		if (wonGame()) {
+			SnakeGame.setGameStage(SnakeGame.GAME_WON);
 			return;
 		}
 
@@ -209,7 +214,7 @@ public class Snake {
 			}
 		}
 		else {
-			//Snake has just eaten. leave tail as is.  Decrease justAte... variable by 1.
+			//Snake has just eaten. leave tail as is.  Decrease justAteMustGrowThisMuch variable by 1.
 			justAteMustGrowThisMuch -- ;
 			snakeSize ++;
 		}
@@ -218,14 +223,6 @@ public class Snake {
 
 	}
 
-	protected boolean didHitWall(){
-		return hitWall;
-
-	}
-
-	protected boolean didEatTail(){
-		return ateTail;
-	}
 
 	public boolean isSnakeSegment(int kibbleX, int kibbleY) {
 		if (snakeSquares[kibbleX][kibbleY] == 0) {
@@ -268,8 +265,6 @@ public class Snake {
 			}
 		}
 		//But if we get here, the snake has filled the screen. win!
-		SnakeGame.setGameStage(SnakeGame.GAME_WON);
-		
 		return true;
 	}
 
@@ -282,10 +277,8 @@ public class Snake {
 	}
 
 	public boolean isGameOver() {
-		if (hitWall == true || ateTail == true){
-			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+		if (hitWall || ateTail){
 			return true;
-			
 		}
 		return false;
 	}

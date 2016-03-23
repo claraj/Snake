@@ -17,7 +17,7 @@ public class SnakeGame {
 
 	protected static Snake snake ;
 
-	protected static Kibble kibble;
+	private static GameComponentManager componentManager;
 
 	protected static Score score;
 
@@ -43,45 +43,6 @@ public class SnakeGame {
 	//http://docs.oracle.com/javase/tutorial/displayCode.html?code=http://docs.oracle.com/javase/tutorial/uiswing/examples/components/FrameDemoProject/src/components/FrameDemo.java
 	//http://docs.oracle.com/javase/tutorial/uiswing/painting/step2.html
 
-	private static void createAndShowGUI() {
-		//Create and set up the window.
-		snakeFrame = new JFrame();
-		snakeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		snakeFrame.setSize(xPixelMaxDimension, yPixelMaxDimension);
-		snakeFrame.setUndecorated(true); //hide title bar
-		snakeFrame.setVisible(true);
-		snakeFrame.setResizable(false);
-
-		snakePanel = new DrawSnakeGamePanel(snake, kibble, score);
-		snakePanel.setFocusable(true);
-		snakePanel.requestFocusInWindow(); //required to give this component the focus so it can generate KeyEvents
-
-		snakeFrame.add(snakePanel);
-		snakePanel.addKeyListener(new GameControls(snake));
-
-		setGameStage(BEFORE_GAME);
-
-		snakeFrame.setVisible(true);
-	}
-
-	private static void initializeGame() {
-		//set up score, snake and first kibble
-		xSquares = xPixelMaxDimension / squareSize;
-		ySquares = yPixelMaxDimension / squareSize;
-
-		snake = new Snake(xSquares, ySquares, squareSize);
-		kibble = new Kibble(snake);
-		score = new Score();
-
-		gameStage = BEFORE_GAME;
-	}
-
-	protected static void newGame() {
-		Timer timer = new Timer();
-		GameClock clockTick = new GameClock(snake, kibble, score, snakePanel);
-		timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
-	}
 
 	public static void main(String[] args) {
 		//Schedule a job for the event-dispatching thread:
@@ -95,16 +56,62 @@ public class SnakeGame {
 	}
 
 
+	private static void createAndShowGUI() {
+		//Create and set up the window.
+		snakeFrame = new JFrame();
+		snakeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+		snakeFrame.setSize(xPixelMaxDimension, yPixelMaxDimension);
+		snakeFrame.setUndecorated(true); //hide title bar
+		snakeFrame.setVisible(true);
+		snakeFrame.setResizable(false);
+
+		snakePanel = new DrawSnakeGamePanel(componentManager);
+
+		snakePanel.setFocusable(true);
+		snakePanel.requestFocusInWindow(); //required to give this component the focus so it can generate KeyEvents
+
+		snakeFrame.add(snakePanel);
+
+		//Add listeners to listen for key presses
+		snakePanel.addKeyListener(new GameControls());
+		snakePanel.addKeyListener(new SnakeControls(snake));
+
+		setGameStage(BEFORE_GAME);
+
+		snakeFrame.setVisible(true);
+	}
+
+	private static void initializeGame() {
+
+		//set up score, snake and first kibble
+		xSquares = xPixelMaxDimension / squareSize;
+		ySquares = yPixelMaxDimension / squareSize;
+
+		componentManager = new GameComponentManager();
+		snake = new Snake(xSquares, ySquares, squareSize);
+		Kibble kibble = new Kibble(snake);
+
+		componentManager.addSnake(snake);
+		componentManager.addKibble(kibble);
+
+		score = new Score();
+
+		componentManager.addScore(score);
+
+		gameStage = BEFORE_GAME;
+	}
+
+	protected static void newGame() {
+		Timer timer = new Timer();
+		GameClock clockTick = new GameClock(componentManager, snakePanel);
+		componentManager.newGame();
+		timer.scheduleAtFixedRate(clockTick, 0, clockInterval);
+	}
+
 
 	public static int getGameStage() {
 		return gameStage;
-	}
-
-	public static boolean gameEnded() {
-		if (gameStage == GAME_OVER || gameStage == GAME_WON){
-			return true;
-		}
-		return false;
 	}
 
 	public static void setGameStage(int gameStage) {

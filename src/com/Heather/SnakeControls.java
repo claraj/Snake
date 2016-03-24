@@ -1,10 +1,10 @@
-package com.clara;
+package com.Heather;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Created by clara. Handles key presses that affect the snake.
+ * Created by Heather. Handles key presses that affect the snake.
  */
 public class SnakeControls implements KeyListener {
 

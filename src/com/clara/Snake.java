@@ -99,32 +99,22 @@ public class Snake {
 		if (currentHeading == DIRECTION_RIGHT && lastHeading == DIRECTION_LEFT) {
 			currentHeading = DIRECTION_LEFT; //keep going the same way
 		}
-		
-		//Did you hit the wall, snake? 
-		//Or eat your tail? Don't move. 
 
-//		q}
-
-		if (wonGame()) {
-			SnakeGame.setGameStage(SnakeGame.GAME_WON);
-			return;
-		}
 
 		//Make new head, and current heading, to move snake
-
 		Square currentHead = snakeSquares.getFirst();
 		int headX = currentHead.x;
 		int headY = currentHead.y;
 
 		Square newHead = new Square(headX + currentHeading[0], headY + currentHeading[1]);
 
-		//Does this make snake hit the wall?
+		//Does this make snake hit the wall? Game over.
 		if (headX >= maxX || headX < 0 || headY >= maxY || headY < 0 ) {
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
 		}
 
-		//Does this make the snake eat its tail?
+		//Does this make the snake eat its tail? Game over.
 		if (isThisInSnake(newHead)) {
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
@@ -133,8 +123,16 @@ public class Snake {
 		//Otherwise, game is still on. Add new head
 		snakeSquares.add(0, newHead);
 
-		//If snake did not just eat, then remove tail segment
-		//to keep snake the same length.
+
+		//Does new position indicate game won?
+		if (wonGame()) {
+			SnakeGame.setGameStage(SnakeGame.GAME_WON);
+			return;
+		}
+
+		// Still playing.
+		// If snake did not just eat, then remove tail segment
+		// to keep snake the same length.
 		if (growThisManySquares == 0) {
 			snakeSquares.removeLast();
 		}

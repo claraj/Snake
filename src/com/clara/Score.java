@@ -7,9 +7,9 @@ package com.clara;
 
 public class Score {
 
-	protected static int score;
-	protected static int highScore = 0;
-	protected static int increment;
+	protected int score;
+	protected int highScore = 0;
+	protected int increment;
 	
 	public Score(){
 		score = 0;
@@ -18,12 +18,12 @@ public class Score {
 		// TODO other ways to increase score?d
 	}
 	
-	public static void resetScore() {
+	public void resetScore() {
 		score = 0;
 	}
 
 
-	public static void increaseScore() {
+	public void increaseScore() {
 		
 		score = score + increment;
 		

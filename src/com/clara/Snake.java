@@ -181,7 +181,7 @@ public class Snake {
 
 	/* Convenience method for testing if a square is one of the snake squares.
 	* This is helpful to decide if a kibble and snake are in the same place i.e. snake
-	* has eaten the kibble. Could also be useful to test if the snake has hit a wall/maze. */
+	* has eaten the kibble. Could also be useful to test if the snake has hit a wall or maze. */
 	public boolean isThisInSnake(Square testSquare) {
 
 		for (Square s : snakeSquares) {

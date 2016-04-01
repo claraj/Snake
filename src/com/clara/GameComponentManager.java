@@ -30,12 +30,12 @@ public class GameComponentManager {
                 kibbleLoc = kibble.moveKibble();
             } while (snake.isThisInSnake(kibbleLoc));
 
-            Score.increaseScore();
+            score.increaseScore();
 		}
     }
 
     public void newGame() {
-        Score.resetScore();
+        score.resetScore();
         snake.createStartSnake();
     }
 

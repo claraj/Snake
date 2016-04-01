@@ -15,32 +15,18 @@ public class Score {
 		score = 0;
 		increment = 1;  //how many points for eating a kibble
 		//Possible TODO get more points for eating kibbles, the longer the snake gets?
+		// TODO other ways to increase score?d
 	}
 	
 	public static void resetScore() {
-		score = 0;	
+		score = 0;
 	}
-	
+
+
 	public static void increaseScore() {
 		
 		score = score + increment;
 		
-	}
-	
-	public int getScore(){
-		return score;
-	}
-	
-	//Checks if current score is greater than the current high score. 
-	//updates high score and returns true if so.
-	
-	public boolean gameOver(){
-		
-		if (score > highScore) {
-			highScore = score;
-			return true;
-		}
-		return false;
 	}
 
 	//These methods are useful for displaying score at the end of the game

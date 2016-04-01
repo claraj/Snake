@@ -16,25 +16,17 @@ public class Kibble {
 	private int kibbleX; //This is the square number (not pixel)
 	private int kibbleY;  //This is the square number (not pixel)
 	
-	public Kibble(Snake s){
-		//Kibble needs to know where the snake is, so it does not create a kibble in the snake
-		//Pick a random location for kibble, check if it is in the snake
-		//If in snake, try again
-		
-		moveKibble(s);
+	public Kibble(){
+
+		moveKibble();
 	}
 	
-	protected void moveKibble(Snake s){
+	protected Square moveKibble(){
 		
 		Random rng = new Random();
-		boolean kibbleInSnake = true;
-		while (kibbleInSnake == true) {
-			//Generate random kibble location
-			kibbleX = rng.nextInt(SnakeGame.xSquares);
-			kibbleY = rng.nextInt(SnakeGame.ySquares);
-			kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);
-		}
-		
+		kibbleX = rng.nextInt(SnakeGame.xSquares);
+		kibbleY = rng.nextInt(SnakeGame.ySquares);
+		return new Square(kibbleX, kibbleY);
 		
 	}
 
@@ -47,5 +39,8 @@ public class Kibble {
 	}
 
 
-	
+	public Square getSquare() {
+
+		return new Square(kibbleX, kibbleY);
+	}
 }

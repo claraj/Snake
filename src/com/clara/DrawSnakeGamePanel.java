@@ -39,7 +39,7 @@ public class DrawSnakeGamePanel extends JPanel {
          */
 
         gameStage = SnakeGame.getGameStage();
-        
+
         switch (gameStage) {
 			case SnakeGame.BEFORE_GAME: {
 				displayInstructions(g);
@@ -81,7 +81,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		g.drawString(newHighScore, 150, 400);
 		
 		g.drawString("press a key to play again", 150, 350);
-		g.drawString("Press q to quit the game",150,400);		
+		g.drawString("Press q to quit the game",150, 400);
     			
 	}
 
@@ -105,6 +105,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		for (int y=0; y <= maxY ; y+= squareSize){			
 			g.drawLine(0, y, maxX, y);
 		}
+
 		//Draw grid - vertical lines
 		for (int x=0; x <= maxX ; x+= squareSize){			
 			g.drawLine(x, 0, x, maxY);
@@ -126,17 +127,19 @@ public class DrawSnakeGamePanel extends JPanel {
 
 	private void displaySnake(Graphics g) {
 
-		LinkedList<Point> coordinates = snake.segmentsToDraw();
+		int size = SnakeGame.squareSize;
+
+		LinkedList<Square> coordinates = snake.getSnakeSquares();
 		
 		//Draw head in grey
 		g.setColor(Color.LIGHT_GRAY);
-		Point head = coordinates.pop();
-		g.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+		Square head = coordinates.pop();
+		g.fillRect(head.x * size, head.y * size, size, size);
 		
 		//Draw rest of snake in black
 		g.setColor(Color.BLACK);
-		for (Point p : coordinates) {
-			g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+		for (Square s : coordinates) {
+			g.fillRect(s.x * size, s.y * size , size, size);
 		}
 	}
 

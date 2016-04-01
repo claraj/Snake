@@ -10,7 +10,7 @@ public class SnakeGame {
 	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
 	public final static int yPixelMaxDimension = 501;
 
-	public static int xSquares ;
+	public static int xSquares ;    //How many squares in the grid?
 	public static int ySquares ;
 
 	public final static int squareSize = 50;
@@ -89,11 +89,13 @@ public class SnakeGame {
 		ySquares = yPixelMaxDimension / squareSize;
 
 		componentManager = new GameComponentManager();
-		snake = new Snake(xSquares, ySquares, squareSize);
-		Kibble kibble = new Kibble(snake);
+		snake = new Snake(xSquares, ySquares);
+		Kibble kibble = new Kibble();
 
 		componentManager.addSnake(snake);
 		componentManager.addKibble(kibble);
+
+		//TODO if you have other components, add them here.
 
 		score = new Score();
 
@@ -104,6 +106,7 @@ public class SnakeGame {
 
 	protected static void newGame() {
 		Timer timer = new Timer();
+		gameStage = DURING_GAME;
 		GameClock clockTick = new GameClock(componentManager, snakePanel);
 		componentManager.newGame();
 		timer.scheduleAtFixedRate(clockTick, 0, clockInterval);

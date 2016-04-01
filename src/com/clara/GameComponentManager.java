@@ -16,16 +16,27 @@ public class GameComponentManager {
      * they could be managed here too
      */
     public void update() {
+
         snake.moveSnake();
-        if (snake.didEatKibble(kibble)) {
-			//tell kibble to update
-            kibble.moveKibble(snake);
+
+        //Ask the snake if it is on top of the kibble
+        if (snake.isThisInSnake(kibble.getSquare())) {
+			//If so, tell the snake that it ate the kibble
+			snake.youAteKibble();
+            //And, update the kibble - move it to a new square. Got to check to make sure
+            //that the new square is not inside the snake.
+            Square kibbleLoc;
+            do {
+                kibbleLoc = kibble.moveKibble();
+            } while (snake.isThisInSnake(kibbleLoc));
+
             Score.increaseScore();
 		}
     }
 
     public void newGame() {
-        snake.reset();
+        Score.resetScore();
+        snake.createStartSnake();
     }
 
 

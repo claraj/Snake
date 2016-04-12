@@ -55,7 +55,7 @@ public class GameControls implements KeyListener{
 			System.exit(0);    //quit if user presses the q key.
 
 		}else if (keyPressed == o){
-			GameOptionsGui options=new GameOptionsGui();
+			new GameOptionsGui();
 		}
 	}
 

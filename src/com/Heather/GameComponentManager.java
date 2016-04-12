@@ -42,7 +42,7 @@ public class GameComponentManager {
 
     //public void addWalls (Walls walls) {this.walls=walls;}
 
-    //public void addMaze (Maze maze) {this.maze=maze;}
+    //public void addMaze (Maze mazes) {this.maze=maze;}
 
     public Score getScore() {
         return score;
@@ -56,8 +56,8 @@ public class GameComponentManager {
         return snake;
     }
 
-    //public Walls getWall(){return walls;}
+    //public Walls getWalls(){return walls;}
 
-    //public Maze getMaze(){return maze;}
+    //public Maze getMazes(){return maze;}
 
 }

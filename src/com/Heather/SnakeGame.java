@@ -1,5 +1,7 @@
 package com.Heather;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.Timer;
 
 import javax.swing.*;
@@ -7,8 +9,13 @@ import javax.swing.*;
 
 public class SnakeGame {
 
-	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-	public final static int yPixelMaxDimension = 501;
+	public /*final*/ static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+	public /*final*/ static int yPixelMaxDimension = 501;
+
+	public static void setMaxDimension(int xPixelMaxDimension, int yPixelMaxDimension) {
+		SnakeGame.xPixelMaxDimension = xPixelMaxDimension;
+		SnakeGame.yPixelMaxDimension = yPixelMaxDimension;
+	}
 
 	public static int xSquares ;
 	public static int ySquares ;
@@ -37,6 +44,11 @@ public class SnakeGame {
 	//This is the time between clock ticks, in milliseconds
 	//1000 milliseconds = 1 second.
 
+
+	public static void setClockInterval(long clockInterval) {
+		SnakeGame.clockInterval = clockInterval;
+	}
+
 	static JFrame snakeFrame;
 	static DrawSnakeGamePanel snakePanel;
 	//Framework for this class adapted from the Java Swing Tutorial, FrameDemo and Custom Painting Demo. You should find them useful too.
@@ -64,7 +76,7 @@ public class SnakeGame {
 		snakeFrame.setSize(xPixelMaxDimension, yPixelMaxDimension);
 		snakeFrame.setUndecorated(true); //hide title bar
 		snakeFrame.setVisible(true);
-		snakeFrame.setResizable(false);
+		snakeFrame.setResizable(false);//TODO Check this to see if it will let the resizing work correctly if I change it to true
 
 		snakePanel = new DrawSnakeGamePanel(componentManager);
 

@@ -28,7 +28,6 @@ public class GameComponentManager {
         snake.reset();
     }
 
-
     public void addKibble(Kibble kibble) {
         this.kibble = kibble;
     }
@@ -41,6 +40,10 @@ public class GameComponentManager {
         this.score = score;
     }
 
+    //public void addWalls (Walls walls) {this.walls=walls;}
+
+    //public void addMaze (Maze maze) {this.maze=maze;}
+
     public Score getScore() {
         return score;
     }
@@ -52,5 +55,9 @@ public class GameComponentManager {
     public Snake getSnake() {
         return snake;
     }
+
+    //public Walls getWall(){return walls;}
+
+    //public Maze getMaze(){return maze;}
 
 }

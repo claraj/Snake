@@ -6,7 +6,7 @@ package com.Heather;
 public class GameComponentManager {
 
     private Kibble kibble;
-    private Snake snake;
+    private static Snake snake;
     private Score score;
 
     /** Called every clock tick. Tell components to interact/update,
@@ -24,7 +24,7 @@ public class GameComponentManager {
 		}
     }
 
-    public void newGame() {
+    public static void newGame() {
         snake.reset();
     }
 

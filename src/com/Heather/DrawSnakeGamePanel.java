@@ -17,7 +17,7 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Snake snake;
 	private Kibble kibble;
 	private Score score;
-	
+
 	DrawSnakeGamePanel(GameComponentManager components){
 		this.snake = components.getSnake();
 		this.kibble = components.getKibble();
@@ -43,6 +43,7 @@ public class DrawSnakeGamePanel extends JPanel {
         switch (gameStage) {
 			case SnakeGame.BEFORE_GAME: {
 				displayInstructions(g);
+				//new GameOptionsGui();
 				break;
 			}
 			case SnakeGame.DURING_GAME: {
@@ -68,20 +69,20 @@ public class DrawSnakeGamePanel extends JPanel {
 	}
 	private void displayGameOver(Graphics g) {
 
-		g.clearRect(100,100,350,350);
-		g.drawString("GAME OVER", 150, 150);
+		g.clearRect(10,10,350,350);
+		g.drawString("GAME OVER", 20, 20);
 		
 		String textScore = score.getStringScore();
 		String textHighScore = score.getStringHighScore();
 		String newHighScore = score.newHighScore();
 		
-		g.drawString("SCORE = " + textScore, 150, 250);
+		g.drawString("SCORE = " + textScore, 20, 40);
 		
-		g.drawString("HIGH SCORE = " + textHighScore, 150, 300);
-		g.drawString(newHighScore, 150, 400);
+		g.drawString("HIGH SCORE = " + textHighScore, 20, 60);
+		g.drawString(newHighScore, 20, 80);
 		
-		g.drawString("press a key to play again", 150, 350);
-		g.drawString("Press q to quit the game",150,400);		
+		g.drawString("press a key to play again", 20, 100);
+		g.drawString("Press q to quit the game",20,120);
     			
 	}
 
@@ -121,6 +122,11 @@ public class DrawSnakeGamePanel extends JPanel {
 		g.fillOval(x+20, y+1, SnakeGame.squareSize-40, SnakeGame.squareSize-1);
 	}
 
+	/*private void displayWalls(Graphics g) {
+		g.setColor(Color.BLACK);
+		int x=mazes.getMaze() * SnakeGame.squareSize;
+
+	}*/
 
 	private void displaySnake(Graphics g) {
 
@@ -140,9 +146,8 @@ public class DrawSnakeGamePanel extends JPanel {
 
 
 	private void displayInstructions(Graphics g) {
-        g.drawString("Press any key to begin!",100,200);
-		g.drawString("Press o for options.", 100, 300);
-        g.drawString("Press q to quit the game.",100,400);
+        g.drawString("Press any key to begin!",50,50);
+        g.drawString("Press q to quit the game.",50,70);
     	}
 }
 

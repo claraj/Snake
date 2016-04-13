@@ -20,6 +20,11 @@ public class GameOptionsGui extends JFrame {
 
     private boolean warp;
     private boolean maze;
+    private static boolean done;
+
+    private static int size=501;
+    private static long speed;
+
     //Combobox models
     DefaultComboBoxModel<String>speedComboModel;
     DefaultComboBoxModel<String>sizeComboModel;
@@ -43,30 +48,33 @@ public class GameOptionsGui extends JFrame {
         speedComboModel.addElement("Fast");
         sizeComboModel.addElement("Small");
         sizeComboModel.addElement("Medium");
-        sizeComboModel.addElement("Fast");
+        sizeComboModel.addElement("Large");
 
         //add listeners
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SnakeGame.setGameStage(1);//just added might not work
                 String stSize=sizeComboBox.getSelectedItem().toString();
                 String stSpeed=speedComboBox.getSelectedItem().toString();
 
                 if(stSize.equals("Small")){
                     SnakeGame.setMaxDimension(251,251);
                 }else if (stSize.equals("Medium")){
-                    SnakeGame.setMaxDimension(501, 501);
+                    SnakeGame.setMaxDimension(501,501);
                 }else if (stSize.equals("Large")){
-                    SnakeGame.setMaxDimension(751, 751);
+                    SnakeGame.setMaxDimension(751,751);//size = 751;
                 }
                 if(stSpeed.equals("Slow")){
-                    SnakeGame.setClockInterval(350);
+                    SnakeGame.setClockInterval(650);
                 }else if (stSpeed.equals("Average")){
                     SnakeGame.setClockInterval(500);
                 }else if (stSpeed.equals("Fast")){
-                    SnakeGame.setClockInterval(650);
+                    SnakeGame.setClockInterval(350);
                 }
+                done=true;
+                setVisible(false);
+                dispose();
 
             }
         });
@@ -85,8 +93,7 @@ public class GameOptionsGui extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                dispose();
+                System.exit(0);
             }
         });
     }
@@ -95,6 +102,12 @@ public class GameOptionsGui extends JFrame {
     }
     public boolean getBolMaze(){
         return maze;
+    }
+    public static int getsize(){
+        return size;
+    }
+    public static boolean getDone(){
+        return done;
     }
 
 }

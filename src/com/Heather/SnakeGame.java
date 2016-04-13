@@ -10,11 +10,13 @@ import javax.swing.*;
 public class SnakeGame {
 
 	public /*final*/ static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-	public /*final*/ static int yPixelMaxDimension = 501;
+	public /*final*/ static int yPixelMaxDimension =501;
 
-	public static void setMaxDimension(int xPixelMaxDimension, int yPixelMaxDimension) {
-		SnakeGame.xPixelMaxDimension = xPixelMaxDimension;
-		SnakeGame.yPixelMaxDimension = yPixelMaxDimension;
+
+
+	public static void setMaxDimension(int x, int y) {
+		xPixelMaxDimension=x;
+		yPixelMaxDimension=y;
 	}
 
 	public static int xSquares ;
@@ -57,6 +59,13 @@ public class SnakeGame {
 
 
 	public static void main(String[] args) {
+		boolean done=false;
+		new GameOptionsGui();
+		while(!done){ //The point of this is to wait until we have the results from the GameOptionsGui to make the game.
+			done=GameOptionsGui.getDone();
+		}
+
+
 		//Schedule a job for the event-dispatching thread:
 		//creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {

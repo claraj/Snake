@@ -1,8 +1,14 @@
 package com.Shawn;
 
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /** This class responsible for displaying the graphics, so the snake, grid, kibble, instruction text and high score
@@ -88,7 +94,8 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayGame(Graphics g) {
 		displayGameGrid(g);
 		displaySnake(g);
-		displayKibble(g);	
+		displayKibble(g);
+		displayWalls(g);
 	}
 
 	private void displayGameGrid(Graphics g) {
@@ -97,9 +104,15 @@ public class DrawSnakeGamePanel extends JPanel {
 		int maxY= SnakeGame.yPixelMaxDimension;
 		int squareSize = SnakeGame.squareSize;
 		
-		g.clearRect(0, 0, maxX, maxY);
+		//g.clearRect(0, 0, maxX, maxY);
+		try {
+			BufferedImage img = ImageIO.read(new File("Grass Tile2.jpg")); //apply a base image for the snake field
+			g.drawImage(img, 0, 0, maxX, maxY, Color.GREEN,this); //draw the image in.
+		}catch (IOException e){
+			System.out.println("Image not found!"); //if the image is not found throw this message.  This is not likely.
+		}
 
-		g.setColor(Color.RED);
+		g.setColor(Color.DARK_GRAY);
 
 		//Draw grid - horizontal lines
 		for (int y=0; y <= maxY ; y+= squareSize){			
@@ -120,7 +133,12 @@ public class DrawSnakeGamePanel extends JPanel {
 		int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
 		g.fillRect(x+1, y+1, SnakeGame.squareSize-2, SnakeGame.squareSize-2);
-		
+		try {
+			BufferedImage img = ImageIO.read(new File("Snake Food4.jpg"));
+			g.drawImage(img, x+1, y+1, SnakeGame.squareSize-2, SnakeGame.squareSize-2, Color.GREEN, this);
+		} catch (IOException e){
+			System.out.println("Snake food image not found!"); //throw exception if image is missing/not found.
+		}
 	}
 
 
@@ -140,6 +158,23 @@ public class DrawSnakeGamePanel extends JPanel {
 		}
 	}
 
+	private  void  displayWalls(Graphics g){
+		LinkedList<Point> coordinates = snake.wallsToDraw();
+
+		g.setColor(Color.black);
+		for (Point p : coordinates){
+			g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+			//add image for the kibble
+
+			//add in the image for the walls.
+			try {
+				BufferedImage img = ImageIO.read(new File("Wall of Trees.png"));
+				g.drawImage(img,(int)p.getX(), (int)p.getY(), SnakeGame.squareSize-2, SnakeGame.squareSize-2, Color.GREEN, this);
+			} catch (IOException e){
+				System.out.println("Snake food image not found!"); //throw exception if image is missing/not found.
+			}
+		}
+	}
 
 	private void displayInstructions(Graphics g) {
         g.drawString("Press any key to begin!",100,200);		

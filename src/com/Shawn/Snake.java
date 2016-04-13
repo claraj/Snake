@@ -46,6 +46,11 @@ public class Snake {
 		int screenXCenter = (int) maxX/2;  //Cast just in case we have an odd number
 		int screenYCenter = (int) maxY/2;  //Cast just in case we have an odd number
 
+		snakeSquares[0][0] = -1; //set the locations that can't be entered into.
+		snakeSquares[maxX-1][0] = -1;
+		snakeSquares[maxX-1][maxY-1] = -1;
+		snakeSquares[0][maxY-1] = -1;
+
 		snakeSquares[screenXCenter][screenYCenter] = 1;
 		snakeSquares[screenXCenter+1][screenYCenter] = 2;
 		snakeSquares[screenXCenter+2][screenYCenter] = 3;
@@ -86,7 +91,21 @@ public class Snake {
 			}
 		}
 		return segmentCoordinates;
+	}
 
+	public LinkedList<Point> wallsToDraw(){ //crating wall segments.
+		LinkedList<Point> segmentCorrdinates = new LinkedList<Point>();
+		//look through the array for each segment number
+		for (int x = 0; x < maxX; x++){
+			for (int y = 0; y < maxY; y++){
+				if (snakeSquares[x][y] == -1){
+					//Now we make a point for this segment's corrd. and add to the list.
+					Point p = new Point(x * squareSize, y * squareSize);
+					segmentCorrdinates.add(p);
+				}
+			}
+		}
+	return segmentCorrdinates;
 	}
 
 	public void snakeUp(){
@@ -157,7 +176,7 @@ public class Snake {
 
 		for (int x = 0 ; x < maxX ; x++) {
 			for (int y = 0 ; y < maxY ; y++){
-				if (snakeSquares[x][y] != 0) {
+				if (snakeSquares[x][y] > 0) { //reset the value for which the snake can access and enter into.
 					snakeSquares[x][y]++;
 				}
 			}
@@ -182,11 +201,17 @@ public class Snake {
 		}
 
 		//Does this make snake hit the wall?
-		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
-			hitWall = true;	
-			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-			return;
-		}
+//		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
+//			hitWall = true;
+//			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+//			return;
+//		}
+
+		//adjust code to accomodate for walls - this will turn off the walls.
+		if (snakeHeadX < 0){snakeHeadX = maxX-1;}
+		if (snakeHeadX == maxX){snakeHeadX = 0;}
+		if (snakeHeadY < 0){snakeHeadY = maxY-1;}
+		if (snakeHeadY == maxY){snakeHeadY = 0;}
 
 		//Does this make the snake eat its tail?
 

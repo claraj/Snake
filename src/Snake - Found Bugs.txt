@@ -1,0 +1,4 @@
+List of found bugs:
+    1) Capslock + Q does not exit(end) the game.
+        F) Adjust the code so that q and Q will both work.
+

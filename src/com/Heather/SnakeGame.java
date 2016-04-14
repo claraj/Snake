@@ -61,10 +61,15 @@ public class SnakeGame {
 	public static void main(String[] args) {
 		boolean done=false;
 		new GameOptionsGui();
-		while(!done){ //The point of this is to wait until we have the results from the GameOptionsGui to make the game.
-			done=GameOptionsGui.getDone();
-		}
+	//	while(!done){ //The point of this is to wait until we have the results from the GameOptionsGui to make the game.
+	//		done=GameOptionsGui.getDone();
+	//	}
 
+
+	}
+	
+	//Call this from GUI when user clicks OK button
+	public static void start() {
 
 		//Schedule a job for the event-dispatching thread:
 		//creating and showing this application's GUI.

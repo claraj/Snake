@@ -75,6 +75,8 @@ public class GameOptionsGui extends JFrame {
                 done=true;
                 setVisible(false);
                 dispose();
+                
+                SnakeGame.start();
 
             }
         });

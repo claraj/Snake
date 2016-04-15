@@ -8,6 +8,8 @@ public class GameComponentManager {
     private Kibble kibble;
     private static Snake snake;
     private Score score;
+    private Mazes maze;
+    private Walls warp;
 
     /** Called every clock tick. Tell components to interact/update,
      * manage interactions, update score etc.
@@ -42,7 +44,7 @@ public class GameComponentManager {
 
     //public void addWalls (Walls walls) {this.walls=walls;}
 
-    //public void addMaze (Maze mazes) {this.maze=maze;}
+    public void addMaze (Mazes mazes) {this.maze=maze;}
 
     public Score getScore() {
         return score;
@@ -58,6 +60,6 @@ public class GameComponentManager {
 
     //public Walls getWalls(){return walls;}
 
-    //public Maze getMazes(){return maze;}
+    public Mazes getMazes(){return maze;}
 
 }

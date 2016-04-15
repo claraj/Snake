@@ -59,11 +59,11 @@ public class GameOptionsGui extends JFrame {
                 String stSpeed=speedComboBox.getSelectedItem().toString();
 
                 if(stSize.equals("Small")){
-                    SnakeGame.setMaxDimension(251,251);
+                    SnakeGame.setMaxDimension(301,301);
                 }else if (stSize.equals("Medium")){
                     SnakeGame.setMaxDimension(501,501);
                 }else if (stSize.equals("Large")){
-                    SnakeGame.setMaxDimension(751,751);//size = 751;
+                    SnakeGame.setMaxDimension(701,701);//size = 751;
                 }
                 if(stSpeed.equals("Slow")){
                     SnakeGame.setClockInterval(650);

@@ -122,9 +122,9 @@ public class DrawSnakeGamePanel extends JPanel {
 		g.fillOval(x+20, y+1, SnakeGame.squareSize-40, SnakeGame.squareSize-1);
 	}
 
-	/*private void displayWalls(Graphics g) {
+	/*private void displayMazes(Graphics g) {
 		g.setColor(Color.BLACK);
-		int x=mazes.getMaze() * SnakeGame.squareSize;
+		int x=Mazes.getMaze() * SnakeGame.squareSize;
 
 	}*/
 
@@ -149,5 +149,6 @@ public class DrawSnakeGamePanel extends JPanel {
         g.drawString("Press any key to begin!",50,50);
         g.drawString("Press q to quit the game.",50,70);
     	}
+
 }
 

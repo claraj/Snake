@@ -63,7 +63,7 @@ public class GameOptionsGui extends JFrame {
                 }else if (stSize.equals("Medium")){
                     SnakeGame.setMaxDimension(501,501);
                 }else if (stSize.equals("Large")){
-                    SnakeGame.setMaxDimension(751,751);//size = 751;
+                    SnakeGame.setMaxDimension(701,701);//size = 751;
                 }
                 //System.out.println("finished size");
                 if(stSpeed.equals("Slow")){

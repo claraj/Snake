@@ -24,7 +24,7 @@ public class Kibble {
 		moveKibble(s);
 	}
 	
-	protected void moveKibble(Snake s){
+	protected void moveKibble(Snake s){//TODO check that kibble not in wall
 		
 		Random rng = new Random();
 		boolean kibbleInSnake = true;

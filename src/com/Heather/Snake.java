@@ -263,6 +263,15 @@ public class Snake {
 		return false;
 	}
 
+	public didHitMaze(Maze maze) {
+		//Is this kibble in the snake? It should be in the same square as the snake's head
+		if (Maze.getMazeX() == snakeHeadX && Maze.getMazeY() == snakeHeadY){
+			hitWall=true;
+		}
+	}
+
+
+
 	public String toString(){
 		String textsnake = "";
 		//This looks the wrong way around. Actually need to do it this way or snake is drawn flipped 90 degrees. 
@@ -285,7 +294,7 @@ public class Snake {
 				System.out.println("Y="+y);
 				if (snakeSquares[x][y] == 0) {//kibble makes square !=0, right?  Lets find out.
 					System.out.println("X=" + x + " Y=" + y);
-					System.out.println(snakeSquares[x][y]);
+					System.out.println("Coordinates for"+snakeSquares[x][y]);
 				for(int i=0; i<(maxX*maxY); i++){
 					System.out.println("snakesquare "+i+": "+ snakeSquares[x][y]);
 				}//there is still empty space on the screen, so haven't won

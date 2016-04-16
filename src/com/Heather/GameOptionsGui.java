@@ -18,8 +18,8 @@ public class GameOptionsGui extends JFrame {
     private JButton cancelButton;
     private JPanel rootPanel;
 
-    private boolean warp;
-    private boolean maze;
+    private static boolean warp  = false;
+    private static boolean maze = false;
     private static boolean done;
 
     private static int size=501;
@@ -57,14 +57,15 @@ public class GameOptionsGui extends JFrame {
                 SnakeGame.setGameStage(1);//just added might not work
                 String stSize=sizeComboBox.getSelectedItem().toString();
                 String stSpeed=speedComboBox.getSelectedItem().toString();
-
+                System.out.println("In Okay Loop");
                 if(stSize.equals("Small")){
-                    SnakeGame.setMaxDimension(251,251);
+                    SnakeGame.setMaxDimension(301,301);
                 }else if (stSize.equals("Medium")){
                     SnakeGame.setMaxDimension(501,501);
                 }else if (stSize.equals("Large")){
                     SnakeGame.setMaxDimension(751,751);//size = 751;
                 }
+                //System.out.println("finished size");
                 if(stSpeed.equals("Slow")){
                     SnakeGame.setClockInterval(650);
                 }else if (stSpeed.equals("Average")){
@@ -72,7 +73,9 @@ public class GameOptionsGui extends JFrame {
                 }else if (stSpeed.equals("Fast")){
                     SnakeGame.setClockInterval(350);
                 }
+                System.out.println("timer");
                 done=true;
+                System.out.println(done);
                 setVisible(false);
                 dispose();
 
@@ -97,10 +100,10 @@ public class GameOptionsGui extends JFrame {
             }
         });
     }
-    public boolean getBolWarp(){
+    public static boolean getWarp(){
         return warp;
     }
-    public boolean getBolMaze(){
+    public static boolean getMaze(){
         return maze;
     }
     public static int getsize(){

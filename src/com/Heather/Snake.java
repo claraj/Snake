@@ -1,6 +1,7 @@
 package com.Heather;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Snake {
@@ -42,6 +43,7 @@ public class Snake {
 	}
 
 	protected void createStartSnake(){
+		System.out.println("createStartSnake");//doesn't get here
 		//snake starts as 3 horizontal squares in the center of the screen, moving left
 		int screenXCenter = (int) maxX/2;  //Cast just in case we have an odd number
 		int screenYCenter = (int) maxY/2;  //Cast just in case we have an odd number
@@ -112,6 +114,7 @@ public class Snake {
 //	}
 
 	protected void moveSnake(){
+		System.out.println("moveSnake");//doesn't make it here
 		//Called every clock tick
 		
 		//Must check that the direction snake is being sent in is not contrary to current heading
@@ -182,10 +185,30 @@ public class Snake {
 		}
 
 		//Does this make snake hit the wall?
-		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
-			hitWall = true;	
-			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-			return;
+		boolean warp=GameOptionsGui.getWarp();
+		System.out.println(warp); //doesn't make it here
+		/*if(!GameOptionsGui.getWarp()){//if warp option not selected*/
+		if(!warp) {
+			if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0) {//TODO change for warp walls
+				hitWall = true;
+				SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+				return;
+			}
+		}else{//warp snakeHead to oposite side of board//TODO fix this.  Snake head keeps eating invisible tail.
+			hitWall = false;
+			if (snakeHeadX >= maxX){
+				snakeHeadX=snakeHeadX-(maxX);
+				return;
+			}else if (snakeHeadX < 0){
+				snakeHeadX=snakeHeadX+(maxX);
+				return;
+			}else if (snakeHeadY >= maxY){
+				snakeHeadY=snakeHeadY-(maxY);
+				return;
+			} else if (snakeHeadY < 0 ) {
+				snakeHeadY = snakeHeadY + (maxY);
+				return;
+			}
 		}
 
 		//Does this make the snake eat its tail?
@@ -204,7 +227,7 @@ public class Snake {
 		//to keep snake the same length.
 		//find highest number, which should now be the same as snakeSize+1, and set to 0
 		
-		if (justAteMustGrowThisMuch == 0) {
+		if (justAteMustGrowThisMuch == 0) {//snake didn't just eat
 			for (int x = 0 ; x < maxX ; x++) {
 				for (int y = 0 ; y < maxY ; y++){
 					if (snakeSquares[x][y] == snakeSize+1) {
@@ -257,9 +280,15 @@ public class Snake {
 		//If all of the squares have snake segments in, the snake has eaten so much kibble 
 		//that it has filled the screen. Win!
 		for (int x = 0 ; x < maxX ; x++) {
+			System.out.println("X="+x); //X always 0, why?
 			for (int y = 0 ; y < maxY ; y++){
-				if (snakeSquares[x][y] == 0) {
-					//there is still empty space on the screen, so haven't won
+				System.out.println("Y="+y);
+				if (snakeSquares[x][y] == 0) {//kibble makes square !=0, right?  Lets find out.
+					System.out.println("X=" + x + " Y=" + y);
+					System.out.println(snakeSquares[x][y]);
+				for(int i=0; i<(maxX*maxY); i++){
+					System.out.println("snakesquare "+i+": "+ snakeSquares[x][y]);
+				}//there is still empty space on the screen, so haven't won
 					return false;
 				}
 			}

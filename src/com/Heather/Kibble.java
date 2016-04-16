@@ -28,7 +28,7 @@ public class Kibble {
 		
 		Random rng = new Random();
 		boolean kibbleInSnake = true;
-		while (kibbleInSnake == true) {
+		while (kibbleInSnake == true) {//TODO try adding another part to this clause stating that if there isn't anywhere for the new kibble to appear, the game has been won
 			//Generate random kibble location
 			kibbleX = rng.nextInt(SnakeGame.xSquares);
 			kibbleY = rng.nextInt(SnakeGame.ySquares);

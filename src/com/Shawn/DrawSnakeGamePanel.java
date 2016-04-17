@@ -209,7 +209,7 @@ public class DrawSnakeGamePanel extends JPanel {
         g.drawString("Press q to quit the game",100,260);
 
         g.drawString("Press w to toggle warp walls", 100, 400); //adjust walls to be warp walls
-        g.drawString("Press s to toggle corners", 100, 440); //add feature to let the corners be added.
+        g.drawString("Press t to toggle trees", 100, 440); //add feature to let the corners be added.
     	}
 }
 

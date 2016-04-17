@@ -40,13 +40,10 @@ public class GameControls implements KeyListener{
             SnakeGame.showWalls = !SnakeGame.showWalls;
         }
 
-        if (ev.getKeyChar() == 'c' || ev.getKeyChar() == 'C'){
+        if (ev.getKeyChar() == 't' || ev.getKeyChar() == 'T'){
             SnakeGame.showTrees = !SnakeGame.showTrees;
         }
-		//this will be where the sound control will go.
-        if (ev.getKeyChar() == 'r' || ev.getKeyChar() == 'R'){
 
-        }
 	}
 
 	@Override

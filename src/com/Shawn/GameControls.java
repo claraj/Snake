@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameControls implements KeyListener{
-	
 
 	public void keyPressed(KeyEvent ev) {
 		//keyPressed events are for catching events like function keys, enter, arrow keys
@@ -23,6 +22,7 @@ public class GameControls implements KeyListener{
 			SnakeGame.setGameStage(SnakeGame.DURING_GAME);
 			SnakeGame.newGame();
 			panel.repaint();
+            //when the game starts run the first sound here
 			return;
 		}
 		
@@ -36,23 +36,32 @@ public class GameControls implements KeyListener{
 			return;
 		}
 
-	}
+        if (ev.getKeyChar() == 'w' || ev.getKeyChar() == 'W'){
+            SnakeGame.showWalls = !SnakeGame.showWalls;
+        }
 
+        if (ev.getKeyChar() == 'c' || ev.getKeyChar() == 'C'){
+            SnakeGame.showTrees = !SnakeGame.showTrees;
+        }
+		//this will be where the sound control will go.
+        if (ev.getKeyChar() == 'r' || ev.getKeyChar() == 'R'){
+
+        }
+	}
 
 	@Override
 	public void keyReleased(KeyEvent ev) {
 		//We don't care about keyReleased events, but are required to implement this method anyway.		
 	}
 
-
 	@Override
 	public void keyTyped(KeyEvent ev) {
 		//keyTyped events are for user typing letters on the keyboard, anything that makes a character display on the screen
 		char keyPressed = ev.getKeyChar();
 		char q = 'q';
-		if( keyPressed == q){
+		char Q = 'Q'; //added Q incase user uses Q instead of Q or if caps lock+ q is pressed.
+		if( keyPressed == q || keyPressed == Q){
 			System.exit(0);    //quit if user presses the q key.
 		}
 	}
-
 }

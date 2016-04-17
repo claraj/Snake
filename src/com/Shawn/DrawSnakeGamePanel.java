@@ -1,7 +1,5 @@
 package com.Shawn;
 
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,11 +20,13 @@ public class DrawSnakeGamePanel extends JPanel {
 	
 	private Snake snake;
 	private Kibble kibble;
+    private Kibble badKibble; //this will be used for the bad food
 	private Score score;
 	
 	DrawSnakeGamePanel(GameComponentManager components){
 		this.snake = components.getSnake();
 		this.kibble = components.getKibble();
+        this.badKibble = components.getBadKibble();
 		this.score = components.getScore();
 	}
 	
@@ -95,7 +95,10 @@ public class DrawSnakeGamePanel extends JPanel {
 		displayGameGrid(g);
 		displaySnake(g);
 		displayKibble(g);
-		displayWalls(g);
+        displayBadKibble(g);
+		if (SnakeGame.showTrees == true){
+            displayWalls(g);
+        }
 	}
 
 	private void displayGameGrid(Graphics g) {
@@ -122,6 +125,13 @@ public class DrawSnakeGamePanel extends JPanel {
 		for (int x=0; x <= maxX ; x+= squareSize){			
 			g.drawLine(x, 0, x, maxY);
 		}
+
+        if (SnakeGame.showWalls == true){
+            g.setColor(Color.red);
+            g.drawRect(1, 1, maxX-3, maxY-3);
+            g.drawRect(2, 2, maxX-5, maxY-5);
+            g.drawRect(3, 3, maxX-7, maxY-7);
+        }
 	}
 
 	private void displayKibble(Graphics g) {
@@ -141,6 +151,21 @@ public class DrawSnakeGamePanel extends JPanel {
 		}
 	}
 
+    private void displayBadKibble(Graphics g){
+        //place a bad kibble in the green.
+        g.setColor(Color.green);
+
+        int x = badKibble.getKibbleX() * SnakeGame.squareSize;
+        int y = badKibble.getKibbleY() * SnakeGame.squareSize;
+
+        g.fillRect(x+1, y+1, SnakeGame.squareSize-2, SnakeGame.squareSize-2);
+        try {
+            BufferedImage img = ImageIO.read(new File("Snake Food1.jpg"));
+            g.drawImage(img, x+1, y+1, SnakeGame.squareSize-2, SnakeGame.squareSize-2, Color.GREEN, this);
+        } catch (IOException e){
+            System.out.println("Snake food image not found!"); //throw exception if image is missing/not found.
+        }
+    }
 
 	private void displaySnake(Graphics g) {
 
@@ -177,8 +202,14 @@ public class DrawSnakeGamePanel extends JPanel {
 	}
 
 	private void displayInstructions(Graphics g) {
-        g.drawString("Press any key to begin!",100,200);		
-        g.drawString("Press q to quit the game",100,300);		
+		g.setFont(new Font("TimesRoman", Font.BOLD, 36));
+        g.drawString("Press any key to begin!",100,200);
+
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 36));
+        g.drawString("Press q to quit the game",100,260);
+
+        g.drawString("Press w to toggle warp walls", 100, 400); //adjust walls to be warp walls
+        g.drawString("Press s to toggle corners", 100, 440); //add feature to let the corners be added.
     	}
 }
 

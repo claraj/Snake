@@ -1,9 +1,8 @@
 package com.Shawn;
 
+import java.net.URL;
 import java.util.Timer;
-
 import javax.swing.*;
-
 
 public class SnakeGame {
 
@@ -14,6 +13,9 @@ public class SnakeGame {
 	public static int ySquares ;
 
 	public final static int squareSize = 100;
+
+	public static boolean showWalls = false;
+	public static boolean showTrees = true;
 
 	protected static Snake snake ;
 
@@ -43,7 +45,6 @@ public class SnakeGame {
 	//http://docs.oracle.com/javase/tutorial/displayCode.html?code=http://docs.oracle.com/javase/tutorial/uiswing/examples/components/FrameDemoProject/src/components/FrameDemo.java
 	//http://docs.oracle.com/javase/tutorial/uiswing/painting/step2.html
 
-
 	public static void main(String[] args) {
 		//Schedule a job for the event-dispatching thread:
 		//creating and showing this application's GUI.
@@ -54,7 +55,6 @@ public class SnakeGame {
 			}
 		});
 	}
-
 
 	private static void createAndShowGUI() {
 		//Create and set up the window.
@@ -91,9 +91,11 @@ public class SnakeGame {
 		componentManager = new GameComponentManager();
 		snake = new Snake(xSquares, ySquares, squareSize);
 		Kibble kibble = new Kibble(snake);
+        Kibble badKibble = new Kibble(snake);
 
 		componentManager.addSnake(snake);
 		componentManager.addKibble(kibble);
+        componentManager.addBadKibble(badKibble);
 
 		score = new Score();
 
@@ -106,9 +108,8 @@ public class SnakeGame {
 		Timer timer = new Timer();
 		GameClock clockTick = new GameClock(componentManager, snakePanel);
 		componentManager.newGame();
-		timer.scheduleAtFixedRate(clockTick, 0, clockInterval);
+		timer.scheduleAtFixedRate(clockTick, 50, clockInterval);
 	}
-
 
 	public static int getGameStage() {
 		return gameStage;

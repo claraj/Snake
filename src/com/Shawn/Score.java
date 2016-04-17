@@ -4,7 +4,6 @@ package com.Shawn;
  * 
  */
 
-
 public class Score {
 
 	protected static int score;
@@ -25,6 +24,11 @@ public class Score {
 		
 		score = score + increment;
 		
+	}
+
+	public static void decreaseScore(){
+		//when the bad items is eaten decrease the score by one.
+		score = score - increment;
 	}
 	
 	public int getScore(){

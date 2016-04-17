@@ -6,6 +6,7 @@ package com.Shawn;
 public class GameComponentManager {
 
     private Kibble kibble;
+    private Kibble badKibble;
     private Snake snake;
     private Score score;
 
@@ -15,6 +16,7 @@ public class GameComponentManager {
      * different types of kibble/prizes, different scoring systems...
      * they could be managed here too
      */
+
     public void update() {
         snake.moveSnake();
         if (snake.didEatKibble(kibble)) {
@@ -22,6 +24,11 @@ public class GameComponentManager {
             kibble.moveKibble(snake);
             Score.increaseScore();
 		}
+        if (snake.didEatBadKibble(badKibble)){
+            //update the kibble
+            badKibble.moveKibble(snake);
+            Score.decreaseScore();
+        }
     }
 
     public void newGame() {
@@ -32,6 +39,9 @@ public class GameComponentManager {
     public void addKibble(Kibble kibble) {
         this.kibble = kibble;
     }
+    public void addBadKibble(Kibble badKibble){
+        this.badKibble = badKibble;
+    }
 
     public void addSnake(Snake snake) {
         this.snake = snake;
@@ -40,7 +50,6 @@ public class GameComponentManager {
     public void addScore(Score score) {
         this.score = score;
     }
-
     public Score getScore() {
         return score;
     }
@@ -48,9 +57,14 @@ public class GameComponentManager {
     public Kibble getKibble() {
         return kibble;
     }
+    public Kibble getBadKibble(){
+        return badKibble;
+    }
 
     public Snake getSnake() {
         return snake;
     }
+
+
 
 }

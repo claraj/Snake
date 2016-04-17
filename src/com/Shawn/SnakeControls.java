@@ -29,7 +29,6 @@ public class SnakeControls implements KeyListener {
         if (ev.getKeyCode() == KeyEvent.VK_RIGHT) {
             snake.snakeRight();
         }
-
     }
 
     @Override

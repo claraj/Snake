@@ -230,6 +230,7 @@ public class Snake {
 		if (justAteMustGrowThisMuch == 0) {//snake didn't just eat
 			for (int x = 0 ; x < maxX ; x++) {
 				for (int y = 0 ; y < maxY ; y++){
+					System.out.println("Snake x="+x+" y="+y);
 					if (snakeSquares[x][y] == snakeSize+1) {
 						snakeSquares[x][y] = 0;
 					}
@@ -263,9 +264,9 @@ public class Snake {
 		return false;
 	}
 
-	public didHitMaze(Maze maze) {
+	public void didHitMaze(Mazes maze) {
 		//Is this kibble in the snake? It should be in the same square as the snake's head
-		if (Maze.getMazeX() == snakeHeadX && Maze.getMazeY() == snakeHeadY){
+		if (Mazes.getMazeX() == snakeHeadX && Mazes.getMazeY() == snakeHeadY){
 			hitWall=true;
 		}
 	}
@@ -285,16 +286,17 @@ public class Snake {
 	}
 
 	public boolean wonGame() {
-
+		boolean a=false;
 		//If all of the squares have snake segments in, the snake has eaten so much kibble 
 		//that it has filled the screen. Win!
-		for (int x = 0 ; x < maxX ; x++) {
+		/*for (int x = 0 ; x < maxX ; x++) {
 			System.out.println("X="+x); //X always 0, why?
 			for (int y = 0 ; y < maxY ; y++){
 				System.out.println("Y="+y);
+				System.out.println("Snake2 x="+x+" Y="+y);
 				if (snakeSquares[x][y] == 0) {//kibble makes square !=0, right?  Lets find out.
 					System.out.println("X=" + x + " Y=" + y);
-					System.out.println("Coordinates for"+snakeSquares[x][y]);
+					//System.out.println("Coordinates for"+snakeSquares[x][y]);
 				for(int i=0; i<(maxX*maxY); i++){
 					System.out.println("snakesquare "+i+": "+ snakeSquares[x][y]);
 				}//there is still empty space on the screen, so haven't won
@@ -302,8 +304,26 @@ public class Snake {
 				}
 			}
 		}
+*/
+		/*if(snakeSize<(maxX*maxY)){
+			a=false;
+		}*/
+		/*for (int x = 0 ; x < maxX ; x++) {
+			for (int y = 0 ; y < maxY ; y++){
+				System.out.println("Snake x="+x+" y="+y);
+				if (snakeSquares[x][y] == snakeSize+1) {
+					snakeSquares[x][y] = 0;
+				}
+			}
+		}*/
+
+
+
 		//But if we get here, the snake has filled the screen. win!
-		return true;
+		if(snakeSize==(maxX*maxY-1)) {//TODO test again with a win
+			a= true;
+		}
+		return a;
 	}
 
 	public void reset() {

@@ -63,7 +63,7 @@ public class DrawSnakeGamePanel extends JPanel {
 
 	private void displayGameWon(Graphics g) {
 		// TODO Replace this with something really special!
-		g.clearRect(100,100,350,350);
+		g.clearRect(10,10,350,350);
 		g.drawString("YOU WON SNAKE!!!", 150, 150);
 		
 	}

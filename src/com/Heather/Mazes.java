@@ -7,8 +7,8 @@ import java.util.Random;
  */
 public class Mazes {//
 
-    private int mazeX;
-    private int mazeY;
+    private static int mazeX;
+    private static int mazeY;
 
     public Mazes(Snake s){
         makeMazes(s);
@@ -31,10 +31,10 @@ public class Mazes {//
 
 
 
-        public int getMazeX(){
-            return mazeX;
-        }
-    public int getMazeY() {
+    public static int getMazeX(){
+        return mazeX;
+    }
+    public static int getMazeY() {
         return mazeY;
     }
 }

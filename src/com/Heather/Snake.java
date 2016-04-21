@@ -43,7 +43,6 @@ public class Snake {
 	}
 
 	protected void createStartSnake(){
-		System.out.println("createStartSnake");//doesn't get here
 		//snake starts as 3 horizontal squares in the center of the screen, moving left
 		int screenXCenter = (int) maxX/2;  //Cast just in case we have an odd number
 		int screenYCenter = (int) maxY/2;  //Cast just in case we have an odd number
@@ -74,7 +73,7 @@ public class Snake {
 	public LinkedList<Point> segmentsToDraw(){
 		//Return a list of the actual x and y coordinates of the top left of each snake segment
 		//Useful for the Panel class to draw the snake
-		LinkedList<Point> segmentCoordinates = new LinkedList<Point>();
+		LinkedList<Point> segmentCoordinates = new LinkedList<>();
 		for (int segment = 1 ; segment <= snakeSize ; segment++ ) {
 			//search array for each segment number
 			for (int x = 0 ; x < maxX ; x++) {
@@ -114,7 +113,6 @@ public class Snake {
 //	}
 
 	protected void moveSnake(){
-		System.out.println("moveSnake");//doesn't make it here
 		//Called every clock tick
 		
 		//Must check that the direction snake is being sent in is not contrary to current heading
@@ -186,10 +184,9 @@ public class Snake {
 
 		//Does this make snake hit the wall?
 		boolean warp=GameOptionsGui.getWarp();
-		System.out.println(warp); //doesn't make it here
 		/*if(!GameOptionsGui.getWarp()){//if warp option not selected*/
 		if(!warp) {
-			if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0) {//TODO change for warp walls
+			if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0) {
 				hitWall = true;
 				SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 				return;
@@ -197,16 +194,24 @@ public class Snake {
 		}else{//warp snakeHead to oposite side of board//TODO fix this.  Snake head keeps eating invisible tail.
 			hitWall = false;
 			if (snakeHeadX >= maxX){
-				snakeHeadX=snakeHeadX-(maxX);
+				snakeHeadX=snakeHeadX-(maxX+1);
+				System.out.println("1snakeHeadX "+snakeHeadX);
+				System.out.println("1snakeHeadY "+snakeHeadY);
 				return;
 			}else if (snakeHeadX < 0){
-				snakeHeadX=snakeHeadX+(maxX);
+				snakeHeadX=snakeHeadX+(maxX+1);
+				System.out.println("2snakeHeadX "+snakeHeadX);
+				System.out.println("2snakeHeadY "+snakeHeadY);
 				return;
 			}else if (snakeHeadY >= maxY){
-				snakeHeadY=snakeHeadY-(maxY);
+				snakeHeadY=snakeHeadY-(maxY-0);//working on testing this right now.
+				System.out.println("3snakeHeadX "+snakeHeadX);
+				System.out.println("3snakeHeadY "+snakeHeadY);
 				return;
 			} else if (snakeHeadY < 0 ) {
-				snakeHeadY = snakeHeadY + (maxY);
+				snakeHeadY = snakeHeadY + (maxY+1);
+				System.out.println("4snakeHeadX "+snakeHeadX);
+				System.out.println("4snakeHeadY "+snakeHeadY);
 				return;
 			}
 		}
@@ -230,7 +235,6 @@ public class Snake {
 		if (justAteMustGrowThisMuch == 0) {//snake didn't just eat
 			for (int x = 0 ; x < maxX ; x++) {
 				for (int y = 0 ; y < maxY ; y++){
-					System.out.println("Snake x="+x+" y="+y);
 					if (snakeSquares[x][y] == snakeSize+1) {
 						snakeSquares[x][y] = 0;
 					}
@@ -286,44 +290,13 @@ public class Snake {
 	}
 
 	public boolean wonGame() {
-		boolean a=false;
+		boolean won=false;
 		//If all of the squares have snake segments in, the snake has eaten so much kibble 
 		//that it has filled the screen. Win!
-		/*for (int x = 0 ; x < maxX ; x++) {
-			System.out.println("X="+x); //X always 0, why?
-			for (int y = 0 ; y < maxY ; y++){
-				System.out.println("Y="+y);
-				System.out.println("Snake2 x="+x+" Y="+y);
-				if (snakeSquares[x][y] == 0) {//kibble makes square !=0, right?  Lets find out.
-					System.out.println("X=" + x + " Y=" + y);
-					//System.out.println("Coordinates for"+snakeSquares[x][y]);
-				for(int i=0; i<(maxX*maxY); i++){
-					System.out.println("snakesquare "+i+": "+ snakeSquares[x][y]);
-				}//there is still empty space on the screen, so haven't won
-					return false;
-				}
-			}
+		if(snakeSize==(maxX*maxY-1)) {//if this happens, player has won.
+			won= true;
 		}
-*/
-		/*if(snakeSize<(maxX*maxY)){
-			a=false;
-		}*/
-		/*for (int x = 0 ; x < maxX ; x++) {
-			for (int y = 0 ; y < maxY ; y++){
-				System.out.println("Snake x="+x+" y="+y);
-				if (snakeSquares[x][y] == snakeSize+1) {
-					snakeSquares[x][y] = 0;
-				}
-			}
-		}*/
-
-
-
-		//But if we get here, the snake has filled the screen. win!
-		if(snakeSize==(maxX*maxY-1)) {//TODO test again with a win
-			a= true;
-		}
-		return a;
+		return won;
 	}
 
 	public void reset() {

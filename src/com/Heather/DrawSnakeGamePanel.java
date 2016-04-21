@@ -10,6 +10,9 @@ import javax.swing.JPanel;
  * @author Clara
  *
  */
+
+
+
 public class DrawSnakeGamePanel extends JPanel {
 	
 	private static int gameStage = SnakeGame.BEFORE_GAME;  //use this to figure out what to paint
@@ -17,6 +20,11 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Snake snake;
 	private Kibble kibble;
 	private Score score;
+
+	private String textScore;
+	private String textHighScore;
+	private String newHighScore;
+	private int dimension=GameOptionsGui.getClearRectangle();
 
 	DrawSnakeGamePanel(GameComponentManager components){
 		this.snake = components.getSnake();
@@ -63,27 +71,42 @@ public class DrawSnakeGamePanel extends JPanel {
 
 	private void displayGameWon(Graphics g) {
 		// TODO Replace this with something really special!
-		g.clearRect(10,10,350,350);
-		g.drawString("YOU WON SNAKE!!!", 150, 150);
-		
+		g.clearRect(10,10,dimension, dimension);
+		g.setColor(Color.BLUE);
+		g.drawString("YOU WON SNAKE!!!", ((dimension/3)-8), (dimension/2));
+		g.setColor(Color.black);
+
+		textScore = score.getStringScore();
+		textHighScore = score.getStringHighScore();
+		newHighScore = score.newHighScore();
+
+		g.drawString("SCORE = " + textScore, ((dimension/3)-4), 40);
+
+		g.drawString("HIGH SCORE = " + textHighScore, ((dimension/3)-7), 60);
+
+
+		g.drawString("Press a key to play again.", ((dimension/3)-13), ((dimension/2)+80));
+		g.drawString("Press q to quit the game.",((dimension/3)-13),((dimension/2)+100));
+
 	}
 	private void displayGameOver(Graphics g) {
+		g.clearRect(10,10,dimension, dimension);
+		g.setColor(Color.magenta);
+		g.drawString("GAME OVER", ((dimension/3)-5), (dimension/2));
+		g.setColor(Color.black);
 
-		g.clearRect(10,10,350,350);
-		g.drawString("GAME OVER", 20, 20);
-		
-		String textScore = score.getStringScore();
-		String textHighScore = score.getStringHighScore();
-		String newHighScore = score.newHighScore();
-		
-		g.drawString("SCORE = " + textScore, 20, 40);
-		
-		g.drawString("HIGH SCORE = " + textHighScore, 20, 60);
-		g.drawString(newHighScore, 20, 80);
-		
-		g.drawString("press a key to play again", 20, 100);
-		g.drawString("Press q to quit the game",20,120);
-    			
+		textScore = score.getStringScore();
+		textHighScore = score.getStringHighScore();
+		newHighScore = score.newHighScore();
+
+		g.drawString("SCORE = " + textScore, ((dimension/3)-4), 40);
+
+		g.drawString("HIGH SCORE = " + textHighScore, ((dimension/3)-7), 60);
+
+
+		g.drawString("Press a key to play again.", ((dimension/3)-13), ((dimension/2)+80));
+		g.drawString("Press q to quit the game.",((dimension/3)-13),((dimension/2)+100));
+
 	}
 
 	private void displayGame(Graphics g) {
@@ -132,15 +155,15 @@ public class DrawSnakeGamePanel extends JPanel {
 
 		LinkedList<Point> coordinates = snake.segmentsToDraw();
 		
-		//Draw head in light red
-		g.setColor(Color.getHSBColor(100, 300, 127));
+		//Draw head in light green
+		g.setColor(new Color(152, 203, 143));
 		Point head = coordinates.pop();
 		g.fillOval((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 		
-		//Draw rest of snake in orange
-		g.setColor(Color.ORANGE);
+		//Draw rest of snake in forest green
+		g.setColor((new Color(80,142,68)));
 		for (Point p : coordinates) {
-			g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+			g.fillRoundRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize,15,15);
 		}
 	}
 

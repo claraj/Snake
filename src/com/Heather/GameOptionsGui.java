@@ -1,6 +1,7 @@
 package com.Heather;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -23,7 +24,7 @@ public class GameOptionsGui extends JFrame {
     private static boolean done;
 
     private static int size=501;
-    private static long speed;
+    private static int clearRectangle;
 
     //Combobox models
     DefaultComboBoxModel<String>speedComboModel;
@@ -31,7 +32,7 @@ public class GameOptionsGui extends JFrame {
 
     public GameOptionsGui(){
         super("Game Options");
-
+        setPreferredSize(new Dimension(400,400));
         setContentPane(rootPanel);
         pack();
         setVisible(true);
@@ -57,13 +58,15 @@ public class GameOptionsGui extends JFrame {
                 SnakeGame.setGameStage(1);//just added might not work
                 String stSize=sizeComboBox.getSelectedItem().toString();
                 String stSpeed=speedComboBox.getSelectedItem().toString();
-                System.out.println("In Okay Loop");
                 if(stSize.equals("Small")){
                     SnakeGame.setMaxDimension(301,301);
+                    clearRectangle=280;
                 }else if (stSize.equals("Medium")){
                     SnakeGame.setMaxDimension(501,501);
+                    clearRectangle=480;
                 }else if (stSize.equals("Large")){
-                    SnakeGame.setMaxDimension(701,701);//size = 751;
+                    SnakeGame.setMaxDimension(701,701);
+                    clearRectangle=680;
                 }
                 //System.out.println("finished size");
                 if(stSpeed.equals("Slow")){
@@ -73,9 +76,7 @@ public class GameOptionsGui extends JFrame {
                 }else if (stSpeed.equals("Fast")){
                     SnakeGame.setClockInterval(350);
                 }
-                System.out.println("timer");
                 done=true;
-                System.out.println(done);
                 setVisible(false);
                 dispose();
 
@@ -109,8 +110,7 @@ public class GameOptionsGui extends JFrame {
     public static int getsize(){
         return size;
     }
-    public static boolean getDone(){
-        return done;
-    }
+    public static boolean getDone(){ return done;}
+    public static int getClearRectangle(){ return clearRectangle;}
 
 }

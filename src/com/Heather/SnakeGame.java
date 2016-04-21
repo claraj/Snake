@@ -1,5 +1,5 @@
 package com.Heather;
-
+//most of this program was written by Clara
 import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.Timer;
@@ -59,7 +59,6 @@ public class SnakeGame {
 
 
 	public static void main(String[] args) {
-		System.out.println("main");//gets here
 		boolean done=false;
 		new GameOptionsGui();
 		while(!done){ //The point of this is to wait until we have the results from the GameOptionsGui to make the game.
@@ -75,7 +74,6 @@ public class SnakeGame {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				initializeGame();
-				System.out.println("start");
 				createAndShowGUI();
 			}
 		});
@@ -120,6 +118,7 @@ public class SnakeGame {
 
 		componentManager.addSnake(snake);
 		componentManager.addKibble(kibble);
+		kibble.moveKibble(snake);//move kibble from inside snake
 
 		score = new Score();
 

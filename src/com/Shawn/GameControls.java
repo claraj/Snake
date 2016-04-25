@@ -17,6 +17,15 @@ public class GameControls implements KeyListener{
 
 		DrawSnakeGamePanel panel = (DrawSnakeGamePanel)ev.getComponent();
 
+		//Put these first - or w or t will be treated as key presses to start or restart the game. 
+		if (ev.getKeyChar() == 'w' || ev.getKeyChar() == 'W'){
+			SnakeGame.showWalls = !SnakeGame.showWalls;
+		}
+
+		if (ev.getKeyChar() == 't' || ev.getKeyChar() == 'T'){
+			SnakeGame.showTrees = !SnakeGame.showTrees;
+		}
+
 		if (SnakeGame.getGameStage() == SnakeGame.BEFORE_GAME){
 			//Start the game
 			SnakeGame.setGameStage(SnakeGame.DURING_GAME);
@@ -36,13 +45,7 @@ public class GameControls implements KeyListener{
 			return;
 		}
 
-        if (ev.getKeyChar() == 'w' || ev.getKeyChar() == 'W'){
-            SnakeGame.showWalls = !SnakeGame.showWalls;
-        }
 
-        if (ev.getKeyChar() == 't' || ev.getKeyChar() == 'T'){
-            SnakeGame.showTrees = !SnakeGame.showTrees;
-        }
 
 	}
 

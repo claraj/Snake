@@ -153,11 +153,13 @@ public class DrawSnakeGamePanel extends JPanel {
 	}*/
 
 	private void displayMazes(Graphics g){//what does this do?
+		g.setColor(Color.BLACK);
 		if(GameOptionsGui.getMaze()){
 			HashMap<Integer, Integer> mazeCoordinates=Mazes.makeMazes(snake);
 			for(Integer c:mazeCoordinates.keySet()){
-				int x=c*SnakeGame.squareSize;
+				int x=c;
 				int y=mazeCoordinates.get(c);
+				g.fillRect(x,y,SnakeGame.squareSize, SnakeGame.squareSize);
 			}
 		}
 	}
@@ -166,8 +168,8 @@ public class DrawSnakeGamePanel extends JPanel {
 
 		LinkedList<Point> coordinates = snake.segmentsToDraw();
 		
-		//Draw head in light green
-		g.setColor(new Color(152, 203, 143));
+		//Draw head in Red
+		g.setColor(new Color(255, 90, 50));
 		Point head = coordinates.pop();
 		g.fillOval((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 		

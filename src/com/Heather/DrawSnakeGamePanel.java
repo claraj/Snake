@@ -1,7 +1,7 @@
 package com.Heather;
 
 import java.awt.*;
-import java.util.LinkedList;
+import java.util.*;
 
 import javax.swing.JPanel;
 
@@ -83,7 +83,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		g.drawString("SCORE = " + textScore, ((dimension/3)-4), 40);
 
 		g.drawString("HIGH SCORE = " + textHighScore, ((dimension/3)-7), 60);
-
+		g.drawString (newHighScore, ((dimension/3)-10), 80);//TODO test this
 
 		g.drawString("Press a key to play again.", ((dimension/3)-13), ((dimension/2)+80));
 		g.drawString("Press q to quit the game.",((dimension/3)-13),((dimension/2)+100));
@@ -112,7 +112,8 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayGame(Graphics g) {
 		displayGameGrid(g);
 		displaySnake(g);
-		displayKibble(g);	
+		displayKibble(g);
+		displayMazes(g);
 	}
 
 	private void displayGameGrid(Graphics g) {
@@ -150,6 +151,16 @@ public class DrawSnakeGamePanel extends JPanel {
 		int x=Mazes.getMaze() * SnakeGame.squareSize;
 
 	}*/
+
+	private void displayMazes(Graphics g){//what does this do?
+		if(GameOptionsGui.getMaze()){
+			HashMap<Integer, Integer> mazeCoordinates=Mazes.makeMazes(snake);
+			for(Integer c:mazeCoordinates.keySet()){
+				int x=c*SnakeGame.squareSize;
+				int y=mazeCoordinates.get(c);
+			}
+		}
+	}
 
 	private void displaySnake(Graphics g) {
 

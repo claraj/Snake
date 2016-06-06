@@ -123,6 +123,10 @@ public class SnakeGame {
 		score = new Score();
 
 		componentManager.addScore(score);
+		if (GameOptionsGui.getMaze()){
+			Mazes maze=new Mazes(snake);
+			componentManager.addMaze(maze);
+		}
 
 		gameStage = BEFORE_GAME;
 	}

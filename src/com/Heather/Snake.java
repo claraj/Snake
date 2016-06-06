@@ -269,7 +269,7 @@ public class Snake {
 	}
 
 	public void didHitMaze(Mazes maze) {
-		//Is this kibble in the snake? It should be in the same square as the snake's head
+		//Is this Maze segment in the snake? If so, it should be in the same square as the snake's head
 		if (Mazes.getMazeX() == snakeHeadX && Mazes.getMazeY() == snakeHeadY){
 			hitWall=true;
 		}

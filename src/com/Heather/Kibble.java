@@ -2,8 +2,6 @@ package com.Heather;
 
 import java.util.Random;
 
-/* In this game, Snakes eat Kibble. Feel free to rename to SnakeFood or Prize or Treats or Cake or whatever. */
-
 
 public class Kibble {
 
@@ -28,11 +26,16 @@ public class Kibble {
 		
 		Random rng = new Random();
 		boolean kibbleInSnake = true;
-		while (kibbleInSnake == true) {//TODO try adding another part to this clause stating that if there isn't anywhere for the new kibble to appear, the game has been won
+		boolean kibbleInMaze = true;
+		while (kibbleInSnake && kibbleInMaze) {
 			//Generate random kibble location
 			kibbleX = rng.nextInt(SnakeGame.xSquares);
 			kibbleY = rng.nextInt(SnakeGame.ySquares);
-			kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);
+			kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);//isSnakeSeg
+			kibbleInMaze = Mazes.isMazeSegment (kibbleX, kibbleY);
+			if(!(kibbleInMaze)&&!(kibbleInSnake)){
+				break;
+			}
 		}
 		
 		

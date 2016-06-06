@@ -169,7 +169,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		LinkedList<Point> coordinates = snake.segmentsToDraw();
 		
 		//Draw head in Red
-		g.setColor(new Color(255, 90, 50));
+		g.setColor(new Color(255, 90, 80));
 		Point head = coordinates.pop();
 		g.fillOval((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 		

@@ -192,27 +192,20 @@ public class Snake {
 				return;
 			}
 		}else{//warp snakeHead to oposite side of board//TODO fix this.  Snake head keeps eating invisible tail.
-			hitWall = false;
-			if (snakeHeadX >= maxX){
-				snakeHeadX=snakeHeadX-(maxX+1);
-				System.out.println("1snakeHeadX "+snakeHeadX);
-				System.out.println("1snakeHeadY "+snakeHeadY);
-				return;
-			}else if (snakeHeadX < 0){
-				snakeHeadX=snakeHeadX+(maxX+1);
-				System.out.println("2snakeHeadX "+snakeHeadX);
-				System.out.println("2snakeHeadY "+snakeHeadY);
-				return;
-			}else if (snakeHeadY >= maxY){
-				snakeHeadY=snakeHeadY-(maxY-0);//working on testing this right now.
-				System.out.println("3snakeHeadX "+snakeHeadX);
-				System.out.println("3snakeHeadY "+snakeHeadY);
-				return;
-			} else if (snakeHeadY < 0 ) {
-				snakeHeadY = snakeHeadY + (maxY+1);
-				System.out.println("4snakeHeadX "+snakeHeadX);
-				System.out.println("4snakeHeadY "+snakeHeadY);
-				return;
+			if (snakeHeadX > maxX-1) {
+				snakeHeadX = 0;
+			}
+
+			if (snakeHeadX < 0 ) {
+				snakeHeadX = maxX-1;
+			}
+
+			if (snakeHeadY > maxY-1) {
+				snakeHeadY = 0;
+			}
+
+			if (snakeHeadY < 0 ) {
+				snakeHeadY = maxY-1;
 			}
 		}
 

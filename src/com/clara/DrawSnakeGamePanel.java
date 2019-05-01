@@ -1,5 +1,13 @@
 package com.clara;
 
+
+import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 import java.awt.*;
 import java.util.LinkedList;
 
@@ -45,6 +53,10 @@ public class DrawSnakeGamePanel extends JPanel {
 				displayInstructions(g);
 				break;
 			}
+			case SnakeGame.OPTIONS: {
+				displayOptions(g);
+				break;
+			}
 			case SnakeGame.DURING_GAME: {
 				displayGame(g);
 				break;
@@ -59,6 +71,17 @@ public class DrawSnakeGamePanel extends JPanel {
         	}
         }
     }
+
+    private void displayOptions(Graphics g){
+		g.drawString("Press W to enable or disable warpwalls.",150,100);
+		g.drawString("Press esc to go back to the main menu.",150,150);
+		if (SnakeGame.warpWalls){
+			g.drawString("Warpwalls: OFF",150,200);
+		} else {
+			g.drawString("Warpwalls: ON",150,200);
+		}
+
+	}
 
 	private void displayGameWon(Graphics g) {
 		// TODO Replace this with something really special!
@@ -117,6 +140,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		//Draw the kibble in green
 		g.setColor(Color.GREEN);
 
+
 		int x = kibble.getKibbleX() * SnakeGame.squareSize;
 		int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
@@ -145,8 +169,9 @@ public class DrawSnakeGamePanel extends JPanel {
 
 
 	private void displayInstructions(Graphics g) {
-        g.drawString("Press any key to begin!",100,200);		
-        g.drawString("Press q to quit the game",100,300);		
+        g.drawString("Press any key to begin!",150,200);
+		g.drawString("Press o for options!",150,250);
+		g.drawString("Press q of esc to quit the game!",150,300);
     	}
 }
 

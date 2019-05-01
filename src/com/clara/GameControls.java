@@ -26,8 +26,11 @@ public class GameControls implements KeyListener{
 
 
 	@Override
-	public void keyReleased(KeyEvent ev) {
-		//We don't care about keyReleased events, but are required to implement this method anyway.		
+	public void keyReleased(KeyEvent ke) {
+		// exits options menu. In keyReleased because when it was in keyTyped it would leave options while the esc was still being pressed and then end the game.
+		if(ke.getKeyChar() == KeyEvent.VK_ESCAPE && SnakeGame.getGameStage() == SnakeGame.OPTIONS){
+			SnakeGame.setGameStage(SnakeGame.BEFORE_GAME);
+		}
 	}
 
 
@@ -36,9 +39,32 @@ public class GameControls implements KeyListener{
 		//keyTyped events are for user typing letters on the keyboard, anything that makes a character display on the screen
 		char keyPressed = ev.getKeyChar();
 		char q = 'q';
+		char o ='o';
+		char w = 'w';
+
+		if( keyPressed == o){
+			SnakeGame.setGameStage(SnakeGame.OPTIONS);    // opens the options menu.
+		}
+
+		// sets up the functionality of the options menu.
+		if(keyPressed == w && SnakeGame.getGameStage() == SnakeGame.OPTIONS){
+			if(!SnakeGame.warpWalls){
+				SnakeGame.warpWalls = true;
+			} else {
+				SnakeGame.warpWalls = false;
+			}
+		}
+
 		if( keyPressed == q){
 			System.exit(0);    //quit if user presses the q key.
 		}
+
+		//makes the escape key also exit the game because that's what I always try to press.
+		if(ev.getKeyChar() == KeyEvent.VK_ESCAPE && SnakeGame.getGameStage() != SnakeGame.OPTIONS){
+			System.exit(0);
+		}
 	}
+
+
 
 }

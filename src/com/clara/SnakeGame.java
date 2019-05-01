@@ -21,10 +21,13 @@ public class SnakeGame {
 
 	protected static Score score;
 
+	public static boolean warpWalls = true;
+
 	static final int BEFORE_GAME = 1;
 	static final int DURING_GAME = 2;
 	static final int GAME_OVER = 3;
-	static final int GAME_WON = 4;   //The numerical values of these variables are not important. The important thing is to use the constants
+	static final int GAME_WON = 4;
+	static final int OPTIONS = 5; //The numerical values of these variables are not important. The important thing is to use the constants
 	//instead of the values so you are clear what you are setting. Easy to forget what number is Game over vs. game won
 	//Using constant names instead makes it easier to keep it straight. Refer to these variables 
 	//using statements such as SnakeGame.GAME_OVER 
@@ -60,11 +63,13 @@ public class SnakeGame {
 		//Create and set up the window.
 		snakeFrame = new JFrame();
 		snakeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		snakeFrame.setTitle("Snake Game v 2.0");
 
 		snakeFrame.setSize(xPixelMaxDimension, yPixelMaxDimension);
-		snakeFrame.setUndecorated(true); //hide title bar
+		snakeFrame.setUndecorated(true); //don't hide the title bar. Why would you want to hide the title bar?
 		snakeFrame.setVisible(true);
 		snakeFrame.setResizable(false);
+		setIcon();
 
 		snakePanel = new DrawSnakeGamePanel(componentManager);
 
@@ -80,6 +85,13 @@ public class SnakeGame {
 		setGameStage(BEFORE_GAME);
 
 		snakeFrame.setVisible(true);
+	}
+
+	private static void setIcon(){
+		String iconURL = "resources/icon.png";
+// iconURL is null when not found
+		ImageIcon icon = new ImageIcon(iconURL);
+		snakeFrame.setIconImage(icon.getImage());
 	}
 
 	private static void initializeGame() {

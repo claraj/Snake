@@ -9,7 +9,7 @@ public class Kibble {
 
 	/** Identifies a random square to display a kibble
 	 * Any square is ok, so long as it doesn't have any snake segments in it. 
-	 * There is only one Kibble that knows where it is on the screen. When the snake eats the kibble, it doesn't disapear and
+	 * There is only one Kibble that knows where it is on the screen. When the snake eats the kibble, it doesn't disappear and
 	 * get recreated, instead it moves, and then will be drawn in the new location. 
 	 */
 	

@@ -109,7 +109,7 @@ public class Snake {
 		Square newHead = new Square(headX + currentHeading[0], headY + currentHeading[1]);
 
 		//Does this make snake hit the wall? Game over.
-		if (headX >= maxX || headX < 0 || headY >= maxY || headY < 0 ) {
+		if ((headX >= maxX || headX < 0 || headY >= maxY || headY < 0 ) && !SnakeGame.warpWalls) {
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
 		}

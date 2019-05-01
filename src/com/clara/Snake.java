@@ -81,6 +81,7 @@ public class Snake {
 	}
 
 
+
 	protected void moveSnake(){
 		//Called every clock tick
 		
@@ -112,6 +113,14 @@ public class Snake {
 		if ((headX >= maxX || headX < 0 || headY >= maxY || headY < 0 ) && !SnakeGame.warpWalls) {
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
+		} else if (headX >= maxX && SnakeGame.warpWalls){
+			newHead.x = 0;
+		}else if (headY >= maxY && SnakeGame.warpWalls){
+			newHead.y = 0;
+		}else if (headX < 0 && SnakeGame.warpWalls){
+			newHead.x = maxX - 1;
+		}else if (headY < 0 && SnakeGame.warpWalls){
+			newHead.y = maxY - 1;
 		}
 
 		//Does this make the snake eat its tail? Game over.

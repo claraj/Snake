@@ -21,11 +21,13 @@ public class DrawSnakeGamePanel extends JPanel {
     private Snake snake;
     private Kibble kibble;
     private Score score;
+    private Wall wall;
 
     DrawSnakeGamePanel(GameComponentManager components) {
         this.snake = components.getSnake();
         this.kibble = components.getKibble();
         this.score = components.getScore();
+        this.wall = components.getWall();
     }
 
     public Dimension getPreferredSize() {
@@ -88,7 +90,7 @@ public class DrawSnakeGamePanel extends JPanel {
 
     private void displayGameOver(Graphics g) {
 
-        g.clearRect(100, 100, 350, 350);
+        g.clearRect(75, 75, 350, 350);
         g.drawString("GAME OVER", 150, 150);
 
         String textScore = score.getStringScore();
@@ -109,6 +111,7 @@ public class DrawSnakeGamePanel extends JPanel {
         displayGameGrid(g);
         displaySnake(g);
         displayKibble(g);
+        displayWall(g);
     }
 
     private void displayGameGrid(Graphics g) {
@@ -145,6 +148,18 @@ public class DrawSnakeGamePanel extends JPanel {
 
     }
 
+    private void displayWall(Graphics g) {
+
+        //Draw the wall in black
+        g.setColor(Color.BLACK);
+
+
+        int x = wall.getWallX() * SnakeGame.squareSize;
+        int y = wall.getWallY() * SnakeGame.squareSize;
+
+        g.fillRect(x + 1, y + 1, SnakeGame.squareSize - 2, SnakeGame.squareSize - 2);
+
+    }
 
     private void displaySnake(Graphics g) {
         String SkinTextureURL = "Resources/Skin.jpg";

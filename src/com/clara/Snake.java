@@ -109,10 +109,11 @@ public class Snake {
 
 		Square newHead = new Square(headX + currentHeading[0], headY + currentHeading[1]);
 
-		//Does this make snake hit the wall? Game over.
+		//Does this make snake hit the wall without warp walls? Game over.
 		if ((headX >= maxX || headX < 0 || headY >= maxY || headY < 0 ) && !SnakeGame.warpWalls) {
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
+			//Are warp walls enabled? It's time to play: WARP. THAT. SNAKE!
 		} else if (headX >= maxX && SnakeGame.warpWalls){
 			newHead.x = 0;
 		}else if (headY >= maxY && SnakeGame.warpWalls){

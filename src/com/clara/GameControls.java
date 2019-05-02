@@ -39,7 +39,7 @@ public class GameControls implements KeyListener{
 		//keyTyped events are for user typing letters on the keyboard, anything that makes a character display on the screen
 		char keyPressed = ev.getKeyChar();
 		char q = 'q';
-		char o ='o';
+		char o = 'o';
 		char w = 'w';
 
 		if( keyPressed == o){

@@ -103,9 +103,11 @@ public class SnakeGame {
 		componentManager = new GameComponentManager();
 		snake = new Snake(xSquares, ySquares);
 		Kibble kibble = new Kibble();
+		Wall wall = new Wall();
 
 		componentManager.addSnake(snake);
 		componentManager.addKibble(kibble);
+		componentManager.addWall(wall);
 
 		//TODO if you have other components, add them here.
 

@@ -35,4 +35,13 @@ public class Wall {
         return new Square(wallX, wallY);
     }
 
+    public boolean isThisInWall(Square testSquare) {
+
+        if (wallX == testSquare.x && wallY == testSquare.y) {
+            return true;
+        }
+        return false;
+
+    }
+
 }

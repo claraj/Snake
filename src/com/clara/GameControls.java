@@ -4,24 +4,23 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameControls implements KeyListener{
-	
+
 
 	public void keyPressed(KeyEvent ev) {
 		//keyPressed events are for catching events like function keys, enter, arrow keys
 
 		//Is game running? No? tell the game to draw grid, start, etc.
-		if (SnakeGame.getGameStage() == SnakeGame.BEFORE_GAME){
+		if (ev.getKeyChar() != 'o' && SnakeGame.getGameStage() == SnakeGame.BEFORE_GAME){
 			SnakeGame.newGame();
 			return;
 		}
 
 		// This is the same at the above if-statement, but it's possible you might want to
 		// do something different depending on where you are in the game.
-		if (SnakeGame.getGameStage() == SnakeGame.GAME_OVER){
+		if (ev.getKeyChar() != 'o' && SnakeGame.getGameStage() == SnakeGame.GAME_OVER){
 			SnakeGame.newGame();
 			return;
 		}
-
 	}
 
 
@@ -30,6 +29,7 @@ public class GameControls implements KeyListener{
 		// exits options menu. In keyReleased because when it was in keyTyped it would leave options while the esc was still being pressed and then end the game.
 		if(ke.getKeyChar() == KeyEvent.VK_ESCAPE && SnakeGame.getGameStage() == SnakeGame.OPTIONS){
 			SnakeGame.setGameStage(SnakeGame.BEFORE_GAME);
+			return;
 		}
 	}
 
@@ -41,17 +41,33 @@ public class GameControls implements KeyListener{
 		char q = 'q';
 		char o = 'o';
 		char w = 'w';
+		char d = 'd';
 
-		if( keyPressed == o){
+		if( keyPressed == o && (SnakeGame.getGameStage() == SnakeGame.BEFORE_GAME || SnakeGame.getGameStage() == SnakeGame.GAME_OVER)){
 			SnakeGame.setGameStage(SnakeGame.OPTIONS);    // opens the options menu.
+			SnakeGame.optionsMenuTimer();
 		}
 
-		// sets up the functionality of the options menu.
+		// sets up the functionality of the warp walls toggle.
 		if(keyPressed == w && SnakeGame.getGameStage() == SnakeGame.OPTIONS){
 			if(!SnakeGame.warpWalls){
 				SnakeGame.warpWalls = true;
 			} else {
 				SnakeGame.warpWalls = false;
+			}
+		}
+
+		// sets up the difficulty select feature.
+		if(keyPressed == d && SnakeGame.getGameStage() == SnakeGame.OPTIONS){
+			if (SnakeGame.gameDifficulty == SnakeGame.EASY){
+				SnakeGame.gameDifficulty = SnakeGame.MID;
+				SnakeGame.addWalls();
+			} else if (SnakeGame.gameDifficulty == SnakeGame.MID){
+				SnakeGame.gameDifficulty = SnakeGame.HARD;
+				SnakeGame.addWalls();
+			} else{
+				SnakeGame.gameDifficulty = SnakeGame.EASY;
+				SnakeGame.addWalls();
 			}
 		}
 

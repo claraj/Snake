@@ -1,5 +1,6 @@
 package com.clara;
 
+import java.util.LinkedList;
 import java.util.Timer;
 
 import javax.swing.*;
@@ -10,10 +11,16 @@ public class SnakeGame {
 	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
 	public final static int yPixelMaxDimension = 501;
 
+	// the 501 pixel window includes the title bar, which I want to include. These are the adjustments to make the game still the right size with having a title bar.  Still needs testing on other computer.
+	public final static int xExtraPixelsToAccountForTitleBar = 16;
+	public final static int yExtraPixelsToAccountForTitleBar = 39;
+
 	public static int xSquares ;    //How many squares in the grid?
 	public static int ySquares ;
 
 	public final static int squareSize = 50;
+
+
 
 	protected static Snake snake ;
 
@@ -21,7 +28,15 @@ public class SnakeGame {
 
 	protected static Score score;
 
+	protected static LinkedList<Wall> wallList = new LinkedList<>();
+
 	public static boolean warpWalls = true;
+
+	static final int EASY = 3;
+	static final int MID = 8;
+	static final int HARD = 15;
+
+	static int gameDifficulty = MID;
 
 	static final int BEFORE_GAME = 1;
 	static final int DURING_GAME = 2;
@@ -65,8 +80,8 @@ public class SnakeGame {
 		snakeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		snakeFrame.setTitle("Snake Game v 2.0");
 
-		snakeFrame.setSize(xPixelMaxDimension, yPixelMaxDimension);
-		snakeFrame.setUndecorated(true); //don't hide the title bar. Why would you want to hide the title bar?
+		snakeFrame.setSize(xPixelMaxDimension + xExtraPixelsToAccountForTitleBar, yPixelMaxDimension + yExtraPixelsToAccountForTitleBar);
+		snakeFrame.setUndecorated(false); // doesn't hide the title bar.
 		snakeFrame.setVisible(true);
 		snakeFrame.setResizable(false);
 		setIcon();
@@ -88,26 +103,26 @@ public class SnakeGame {
 	}
 
 	private static void setIcon(){
+		// displays the icon
 		String iconURL = "resources/icon.png";
-// iconURL is null when not found
 		ImageIcon icon = new ImageIcon(iconURL);
 		snakeFrame.setIconImage(icon.getImage());
 	}
 
 	private static void initializeGame() {
 
-		//set up score, snake and first kibble
+		//set up score, snake, walls, and first kibble
 		xSquares = xPixelMaxDimension / squareSize;
 		ySquares = yPixelMaxDimension / squareSize;
 
 		componentManager = new GameComponentManager();
 		snake = new Snake(xSquares, ySquares);
 		Kibble kibble = new Kibble();
-		Wall wall = new Wall();
 
+
+		addWalls();
 		componentManager.addSnake(snake);
 		componentManager.addKibble(kibble);
-		componentManager.addWall(wall);
 
 		//TODO if you have other components, add them here.
 
@@ -118,14 +133,32 @@ public class SnakeGame {
 		gameStage = BEFORE_GAME;
 	}
 
-	protected static void newGame() {
+	// deletes any existing walls and makes a new set of walls based on the game difficulty.
+	protected static void addWalls(){
+		if (!wallList.isEmpty()) {
+			wallList.clear();
+		}
+		for (int x = 1; x <= gameDifficulty; x++){
+			Wall newWall = new Wall();
+			wallList.add(newWall);
+		}
+	}
+
+	protected static Runnable newGame() {
 		Timer timer = new Timer();
 		gameStage = DURING_GAME;
 		GameClock clockTick = new GameClock(componentManager, snakePanel);
-		componentManager.newGame();
 		timer.scheduleAtFixedRate(clockTick, 0, clockInterval);
+		componentManager.newGame();
+		return null;
 	}
 
+	protected static void optionsMenuTimer(){
+		Timer optionsTimer = new Timer();
+		gameStage = OPTIONS;
+		GameClock clockTick = new GameClock(componentManager, snakePanel);
+		optionsTimer.scheduleAtFixedRate(clockTick, 0, clockInterval);
+	}
 
 	public static int getGameStage() {
 		return gameStage;

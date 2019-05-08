@@ -17,7 +17,6 @@ public class Kibble {
 	private int kibbleY;  //This is the square number (not pixel)
 	
 	public Kibble(){
-
 		moveKibble();
 	}
 	
@@ -42,5 +41,14 @@ public class Kibble {
 	public Square getSquare() {
 
 		return new Square(kibbleX, kibbleY);
+	}
+
+	public boolean isThisInKibble(Square testSquare) {
+
+		if (kibbleX == testSquare.x && kibbleY == testSquare.y) {
+			return true;
+		}
+		return false;
+
 	}
 }

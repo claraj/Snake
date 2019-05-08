@@ -26,6 +26,10 @@ public class Snake {
 		createStartSnake();
 	}
 
+	public int[] getCurrentHeading() {
+		return currentHeading;
+	}
+
 	protected void createStartSnake(){
 
 		//snake starts as 3 horizontal squares in the center of the screen, moving left.
@@ -111,21 +115,23 @@ public class Snake {
 
 		//Does this make snake hit the wall without warp walls? Game over.
 		if ((headX >= maxX || headX < 0 || headY >= maxY || headY < 0 ) && !SnakeGame.warpWalls) {
+			GameComponentManager.lingeringTimer = true;
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
 			//Are warp walls enabled? It's time to play: WARP. THAT. SNAKE!
-		} else if (headX >= maxX && SnakeGame.warpWalls){
+		} else if (headX >= maxX - 1 && SnakeGame.warpWalls && currentHeading == DIRECTION_RIGHT){
 			newHead.x = 0;
-		}else if (headY >= maxY && SnakeGame.warpWalls){
+		}else if (headY >= maxY - 1 && SnakeGame.warpWalls && currentHeading == DIRECTION_DOWN){
 			newHead.y = 0;
-		}else if (headX < 0 && SnakeGame.warpWalls){
+		}else if (headX <= 0 && SnakeGame.warpWalls && currentHeading == DIRECTION_LEFT){
 			newHead.x = maxX - 1;
-		}else if (headY < 0 && SnakeGame.warpWalls){
+		}else if (headY <= 0 && SnakeGame.warpWalls && currentHeading == DIRECTION_UP){
 			newHead.y = maxY - 1;
 		}
 
 		//Does this make the snake eat its tail? Game over.
 		if (isThisInSnake(newHead)) {
+			GameComponentManager.lingeringTimer = true;
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
 		}
@@ -180,7 +186,7 @@ public class Snake {
 
 		//Number of squares on screen = x squares * y squares
 
-		if (snakeSquares.size() == (maxX * maxY)) {
+		if (snakeSquares.size() == (maxX * maxY) - SnakeGame.gameDifficulty) {
 			return true;
 		}
 		return false;

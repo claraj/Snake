@@ -8,7 +8,7 @@ package com.clara;
 public class Score {
 
 	protected int score;
-	protected int highScore = 0;
+	protected int highScore = HighScoreDatabase.getHighScore();
 	protected int increment;
 	
 	public Score(){
@@ -29,14 +29,16 @@ public class Score {
 		
 	}
 
-	//These methods are useful for displaying score at the end of the game
+	public int getScore() { return score;
+	}
+//These methods are useful for displaying score at the end of the game
 	
 	public String getStringScore() {
 		return Integer.toString(score);
 	}
 
 	public String newHighScore() {
-		
+
 		if (score > highScore) {
 			highScore = score;
 			return "New High Score!!";

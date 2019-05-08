@@ -3,7 +3,8 @@ package com.clara;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 
@@ -20,6 +21,10 @@ public class DrawSnakeGamePanel extends JPanel {
     private Kibble kibble;
     private Score score;
     private Wall wall;
+
+    private JPanel snakePanel = new JPanel();
+    private JTextField playerNameTextField = new JTextField("Enter Name Here");
+    private JButton SubmitScoreButton = new JButton("Submit Score");
 
 
     DrawSnakeGamePanel(GameComponentManager components) {
@@ -61,6 +66,7 @@ public class DrawSnakeGamePanel extends JPanel {
             }
             case SnakeGame.GAME_OVER: {
                 displayGameOver(g);
+                listenTime();
                 break;
             }
             case SnakeGame.GAME_WON: {
@@ -72,6 +78,8 @@ public class DrawSnakeGamePanel extends JPanel {
 
     // the UI of the options menu
     private void displayOptions(Graphics g) {
+        remove(SubmitScoreButton);
+        remove(playerNameTextField);
         g.drawString("Press W to enable or disable warpwalls.", 150, 100);
         g.drawString("Press D to adjust the difficulty.", 150, 125);
         g.drawString("Press esc to go back to the main menu.", 150, 150);
@@ -100,23 +108,32 @@ public class DrawSnakeGamePanel extends JPanel {
     private void displayGameOver(Graphics g) {
 
         g.clearRect(75, 75, 350, 350);
-        g.drawString("GAME OVER", 150, 150);
+        g.drawString("GAME OVER", 150, 125);
 
         String textScore = score.getStringScore();
-        String textHighScore = score.getStringHighScore();
+        String textHighScore = Integer.toString(HighScoreDatabase.getHighScore());
+        String highPlayer = HighScoreDatabase.getHighPlayer();
         String newHighScore = score.newHighScore();
 
-        g.drawString("SCORE = " + textScore, 150, 250);
+        g.drawString("SCORE = " + textScore, 150, 175);
 
-        g.drawString("HIGH SCORE = " + textHighScore, 150, 300);
-        g.drawString(newHighScore, 150, 400);
+        g.drawString("HIGH SCORE = " + highPlayer + ": " + textHighScore, 150, 200);
+        g.drawString(newHighScore, 150, 225);
 
-        g.drawString("press a key to play again", 150, 350);
-        g.drawString("Press q to quit the game", 150, 400);
+        g.drawString("press a key to play again", 150, 250);
+        g.drawString("Press q to quit the game", 150, 275);
+
+        playerNameTextField.setBounds(115,325,200,25);
+        add(playerNameTextField);
+
+        SubmitScoreButton.setBounds(150,350,115,25);
+        add(SubmitScoreButton);
 
     }
 
     private void displayGame(Graphics g) {
+        remove(SubmitScoreButton);
+        remove(playerNameTextField);
         displayGameGrid(g);
         displaySnake(g);
         displayKibble(g);
@@ -201,10 +218,7 @@ public class DrawSnakeGamePanel extends JPanel {
         for (Square s : coordinates) {
             g.drawImage(i1.getImage(),s.x * size, s.y * size, size, size,null);
         }
-
-
     }
-
 
     private void displayInstructions(Graphics g) {
         g.drawString("Press any key to begin!", 150, 200);
@@ -212,6 +226,7 @@ public class DrawSnakeGamePanel extends JPanel {
         g.drawString("Press q of esc to quit the game!", 150, 300);
     }
 
+    // draws snakes head facing whatever direction the current heading is.
     private void drawSnakeHead(Graphics g, LinkedList<Square> coordinates){
         String HeadTextureURL = "Resources/Head.png";
         ImageIcon i2 = new ImageIcon(HeadTextureURL);
@@ -239,14 +254,17 @@ public class DrawSnakeGamePanel extends JPanel {
             g2.transform( trans );
             g2.drawImage(i2.getImage(),(head.x * size) - size, head.y * size, size, size,null);
         }
-
-
-
         g2.setTransform(old);
-
-
-
-
 	}
+
+	private void listenTime(){
+        SubmitScoreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = playerNameTextField.getText();
+                HighScoreDatabase.addScore(name, score.getScore());
+            }
+        });
+    }
 }
 

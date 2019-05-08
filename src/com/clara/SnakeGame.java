@@ -110,7 +110,6 @@ public class SnakeGame {
 	}
 
 	private static void initializeGame() {
-
 		//set up score, snake, walls, and first kibble
 		xSquares = xPixelMaxDimension / squareSize;
 		ySquares = yPixelMaxDimension / squareSize;
@@ -119,14 +118,12 @@ public class SnakeGame {
 		snake = new Snake(xSquares, ySquares);
 		Kibble kibble = new Kibble();
 
-
 		addWalls();
 		componentManager.addSnake(snake);
 		componentManager.addKibble(kibble);
 
-		//TODO if you have other components, add them here.
-
 		score = new Score();
+		initializeDatabase();
 
 		componentManager.addScore(score);
 
@@ -158,6 +155,13 @@ public class SnakeGame {
 		gameStage = OPTIONS;
 		GameClock clockTick = new GameClock(componentManager, snakePanel);
 		optionsTimer.scheduleAtFixedRate(clockTick, 0, clockInterval);
+	}
+
+	protected static void initializeDatabase(){
+		HighScoreDatabase.createTables();
+		if(!HighScoreDatabase.checkForData()){
+			HighScoreDatabase.InsertStartingData();
+		}
 	}
 
 	public static int getGameStage() {

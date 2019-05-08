@@ -5,7 +5,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\bl5208qo.MPLS.004\IdeaProjects\Snake\highScore.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\bl5208qo.MPLS.011\IdeaProjects\Snake\highScore.db</jdbc-url>
       <driver-properties>
         <property name="enable_load_extension" value="true" />
       </driver-properties>

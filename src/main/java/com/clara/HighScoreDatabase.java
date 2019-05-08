@@ -19,12 +19,13 @@ public class HighScoreDatabase {
     }
 
 
-    protected static void addScore(String name, double score) {
+    protected static void addScore(String name, int score) {
         try (Connection connection = DriverManager.getConnection(HighScoreDatabase.db_url);
              PreparedStatement psAdd = connection.prepareStatement("INSERT INTO high_scores ('player_name', 'score') VALUES (?,?)")) {
             psAdd.setString(1, name);
             psAdd.setDouble(2, score);
             psAdd.executeUpdate();
+            System.out.println("Something");
         } catch (SQLException sqlex) {
             System.out.println("Error inserting data to database.\n" + sqlex);
         }
@@ -68,12 +69,12 @@ public class HighScoreDatabase {
         try (Connection connection = DriverManager.getConnection(HighScoreDatabase.db_url);
              Statement statement = connection.createStatement()) {
 
-            ResultSet rs = statement.executeQuery("Select TOP 1 score From high_scores Order By score;");
+            ResultSet rs = statement.executeQuery("Select score From high_scores Order By score DESC limit 1;");
 
             int score = 0;
 
             while (rs.next()) {
-                score = rs.getInt("score");
+                score = rs.getInt("Score");
             }
 
             return score;
@@ -88,7 +89,7 @@ public class HighScoreDatabase {
         try (Connection connection = DriverManager.getConnection(HighScoreDatabase.db_url);
              Statement statement = connection.createStatement()) {
 
-            ResultSet rs = statement.executeQuery("Select TOP 1 player_name From high_scores Order By score;");
+            ResultSet rs = statement.executeQuery("Select player_name From high_scores Order By score DESC limit 1;");
 
             String name = "";
 

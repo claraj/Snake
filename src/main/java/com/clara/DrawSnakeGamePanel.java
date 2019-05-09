@@ -22,7 +22,6 @@ public class DrawSnakeGamePanel extends JPanel {
     private Score score;
     private Wall wall;
 
-    private JPanel snakePanel = new JPanel();
     private JTextField playerNameTextField = new JTextField("Enter Name Here");
     private JButton SubmitScoreButton = new JButton("Submit Score");
 
@@ -161,8 +160,8 @@ public class DrawSnakeGamePanel extends JPanel {
 			}
 		}
         for (Square s : floor){
-        	g.setColor(Color.LIGHT_GRAY);
-			g.drawImage(i1.getImage(), s.x , s.y , squareSize, squareSize, Color.white, null);
+//        	g.setColor(Color.LIGHT_GRAY);
+			g.drawImage(i1.getImage(), s.x , s.y , squareSize, squareSize, Color.white,null);
 		}
 
         g.setColor(Color.RED);

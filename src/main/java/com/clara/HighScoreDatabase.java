@@ -10,8 +10,8 @@ public class HighScoreDatabase {
         try (Connection connection = DriverManager.getConnection(db_url);
              Statement statement = connection.createStatement()) {
 
-            String createCube = "create table IF NOT EXISTS high_scores (id integer PRIMARY KEY, player_name varchar, score integer );";
-            statement.execute(createCube);
+            String createTable = "create table IF NOT EXISTS high_scores (id integer PRIMARY KEY, player_name varchar, score integer );";
+            statement.execute(createTable);
 
         } catch (SQLException sqlex) {
             System.out.println("Unable to connect to database because " + sqlex);
@@ -25,7 +25,6 @@ public class HighScoreDatabase {
             psAdd.setString(1, name);
             psAdd.setDouble(2, score);
             psAdd.executeUpdate();
-            System.out.println("Something");
         } catch (SQLException sqlex) {
             System.out.println("Error inserting data to database.\n" + sqlex);
         }

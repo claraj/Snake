@@ -33,7 +33,6 @@ public class GameClock extends TimerTask {
 					// stops any timer from previous games that somehow wasn't stopped when the game restarted.
 				if(componentManager.lingeringTimer){
 					this.cancel();
-					componentManager.update();
 					componentManager.lingeringTimer = false;
 					break;
 				} else {
